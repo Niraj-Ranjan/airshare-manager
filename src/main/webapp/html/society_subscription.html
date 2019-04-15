@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>XorFone | Subscription</title>
+        <!-- Bootstrap -->
+        <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">        
+        <!-- Custom Theme Style -->
+        <link href="../css/custom.css" rel="stylesheet">        
+		<link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
+		
+        <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="../js/custom.js"></script>
+		<script src="../js/properties.js"></script>
+		<script src="../js/utils.js"></script>
+		<!-- Parsley -->
+        <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+        
+    </head>
+    <!-- -->
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                <div id="header"></div>
+                <!-- page content -->
+                <div class="right_col" role="main">
+                    <div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <div class="col-md-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2 id="subsAction">Add Subscription</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content1">
+                                    	<div id="loadingDiv" class="form-group" style="text-align: center;">
+					                        <div >
+					                        	<img src="../img/loading.gif" width="35px"/>
+					                        	Please wait while we load subscription information.
+											</div>
+						                </div>
+                                        <br />
+										<div id="formDiv" style="display:none">
+										<form action="" class="form-horizontal form-label-left" id="addsubForm" data-parsley-validate action="" >
+						                    <div class="form-group">
+						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">License *</label>
+						                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select id="licenseList" required="required" class="form-control"></select>
+                                                </div>
+						                    </div>
+						                    <div class="form-group">
+						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date *</label>
+						                        <div class="col-md-6 col-sm-6 col-xs-12">
+							                        <input id="startdate" class="date-picker form-control" required="required" type="date" max="9999-12-31">
+							                        <span id="sdateError" class="error text-danger hide"></span>
+						                        </div>
+						                    </div>
+						                    <br>
+						                    <div class="form-group">
+						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">End Date *</label>
+						                        <div class="col-md-6 col-sm-6 col-xs-12">
+							                        <input id="enddate" class="date-picker form-control" required="required" type="date" max="9999-12-31">
+							                        <span id="edateError" class="error text-danger hide"></span>
+						                        </div>
+						                    </div>
+						                    <br>
+						                    <div class="form-group">
+						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Cost</label>
+						                        <div class="col-md-6 col-sm-6 col-xs-12">
+						                        	<input id="cost" required="required" disabled type="text">
+					                        	</div>
+						                    </div>
+						                    <div class="ln_solid"></div>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <div style="float:left">
+													<button id="cancelAddSubs"  type="button"  class="btn-secondary">Cancel</button>
+												</div>
+												<div style="float:right">
+                                                    <button id="submitAddSubs" type="submit" class="btn btn-primary btn-sm">Add</button>
+                                                </div>
+                                            </div>
+						                </form>
+										</div>
+						                
+						                <div id="completionDiv" style="display:none;">
+						                	<span id="completionMsg"></span><br /><br />
+                                            <a id="addSubs" type="button" class="btn btn-success btn-sm" href="society_subscription.html">Add New Subscription</a>
+                                            <a id="home" type="button" class="btn btn-success btn-sm">Go to Home</a>
+						                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <script>		
+			$(document).ready(function() {
+				loadHeader();
+				var subsAction = "add";
+				var subsId = -1;
+				var orgId = getStorageData(KEY_ORG_ID);
+				var url = window.location.href;
+				
+				var subsDataAvl = false;
+				var licenseDataAvl = false;
+				
+				var allDataAvailable = function(){
+				
+					if( subsDataAvl && licenseDataAvl){
+						return true;
+					}
+					return false;
+				};
+				
+				var checkAndHideIndicator = function(){
+					if(allDataAvailable()){
+						// hide indicator.
+						$("#loadingDiv").hide();
+						$("#formDiv").show();
+					}
+				};
+				
+				if(url.indexOf("action=update") == -1){
+					subsAction = "add";
+					$("#subsAction").html("Add Subscription");
+			        $("#submitAddSubs").html("Add");
+					subsDataAvl = true;
+				} else {
+					subsAction = "update";
+			        $("#subsAction").html("Update Subscription");
+			        $("#submitAddSubs").html("Update");
+			        $("#loadingDiv").show();
+				}
+				
+				
+				$("#submitAddSubs").on('click', function() {
+					$("#sdateError").addClass("hide");
+					$("#edateError").addClass("hide");
+			    	$('#addsubForm').parsley().validate();
+			    	// Check if SA and any non-zero cost license is selected.
+			    	
+			    	if (true === $('#addsubForm').parsley().isValid()) {
+			    		if(!isXAUser()){
+			    			var cost = $("#licenseList").find('option:selected').attr("cost");
+			    			if(parseInt(cost) > 0){
+			    				window.ParsleyUI.addError($('#licenseList').parsley(), 'parsley', "This is paid license. Please contact XorFone to subscribe to it.");
+			    			} else {
+			    				submitSubscription();
+			    			}
+				    	} else {
+				    		submitSubscription();
+				    	}
+			    		
+		            }
+			    	
+			        return false;
+			    });
+				
+				$("#cancelAddSubs").on('click', function() {
+			    	goToSocietyDetails();
+			    	return false;
+			    });
+				
+				$("#home").on('click', function() {
+			    	goToSocietyDetails();
+			    	return false;
+			    });
+
+			    var processLicenseData = function(response) {
+			        licenses = response.data;
+
+			        for (i = 0; i < licenses.length; i++) {
+			            console.log(licenses[i].name);
+			            // fill up the select input now with options
+			            $('#licenseList').append($('<option>', {
+			                sno: i,
+			                value: licenses[i].id,
+			                text: licenses[i].name,
+			                cost: licenses[i].cost,
+			                curr: licenses[i].currency.prefix,
+			                sdate: licenses[i].startDate,
+			                edate: licenses[i].endDate
+			            }));
+			        }
+			        $("#cost").prop("value", (licenses[0].cost + " " + licenses[0].currency.prefix));
+			        
+			        if (subsAction == "update") {
+			        	var subsDataStr = getStorageData(KEY_ORG_SUBS_DATA);
+				        if(!isEmpty(subsDataStr)){
+				        	var subsData = JSON.parse(subsDataStr);
+				        	subsId = parseInt(subsData.id);
+				        	var startDate = "";
+				        	// Populate the data for edit
+				        	$("#licenseList").val(subsData.license.id).change();
+				        	if(!isEmpty(subsData.startDate)){
+				        		var startDateStr = subsData.startDate;
+				        		var arrDate = startDateStr.split(" ");
+				        		if(!isEmpty(arrDate)){
+				        			$("#startdate").prop("value", arrDate[0]);
+				        		}
+				        	}
+				        	
+				        	if(!isEmpty(subsData.endDate)){
+				        		var endDateStr = subsData.endDate
+				        		var arrDate = endDateStr.split(" ");
+				        		if(!isEmpty(arrDate)){
+				        			$("#enddate").prop("value", arrDate[0]);
+				        		}
+				        	}
+							
+							subsDataAvl = true;
+							checkAndHideIndicator();
+				        }
+			        }
+			        licenseDataAvl = true;
+					checkAndHideIndicator();
+			        
+			    };
+			    
+			    var processLicenseDataFailure = function(res) {
+					showMessage("Unable to fetch license details at this moment. Please try again later.", "error");
+			    };
+			    
+			    var getLicenses = function(){
+			    	var licenseURL = "api/licenses/";
+				    ajaxRequest(null, "GET", licenseURL, processLicenseData, processLicenseDataFailure);
+			    };
+			    
+			    getLicenses();
+			    
+			    $("#licenseList").change(function() {
+
+			        //populate the cost accordingly
+			        var c = $("#licenseList :selected").attr('cost');
+			        var c1 = $("#licenseList :selected").attr('curr');
+			        var c2 = c + " " + c1;
+			        $("#cost").prop("value", c2);
+
+			    });
+			    
+			    
+			    // on submit
+			    var submitSubscription = function() {
+
+			        var licenseId = $("#licenseList").val();
+			        var sdate = $("#startdate").val();
+			        var edate = $("#enddate").val();
+			        var cost = $("#licenseList").find('option:selected').attr("cost");
+			        var licenseStartDate = $("#licenseList").find('option:selected').attr("sdate");
+			        var licenseEndDate = $("#licenseList").find('option:selected').attr("edate");
+			        var id = $("#licenseList").find('option:selected').attr("id");
+			        var s = " 00:00:00+0000";
+					
+			        var lsdate = null;
+			        var ledate = null;
+			        var arr = null;
+			        var d1 = null;
+			        var d2 = null; 
+			        if(!isEmpty(licenseStartDate)){
+			        	arr = licenseStartDate.split(" ");
+			        	lsdate = arr[0];
+			        	d1 = new Date(lsdate);
+			        }
+			        if(!isEmpty(licenseEndDate)){
+			        	arr = licenseEndDate.split(" ");
+			        	ledate = arr[0];
+			        	d2 = new Date(ledate);
+			        }
+
+			        var d3 = new Date(sdate);
+			        var d4 = new Date(edate);
+
+			        var allDateFine = true;
+
+			        if(d1 != null && d1 > d3 ){
+			        	var errMsg = "Start date should be after " + d1.toLocaleDateString();
+			        	allDateFine = false;
+			        	$("#sdateError").html(errMsg).change();
+			            $("#sdateError").removeClass("hide");
+			        }
+			        
+			        if(d2 != null && d3 > d2){
+			        	var errMsg = "Start date should be before " + d2.toLocaleDateString();
+			        	allDateFine = false;
+			        	$("#sdateError").html(errMsg).change();
+			            $("#sdateError").removeClass("hide");
+			        }
+			        
+			        if(d2 != null && d4 > d2){
+			        	var errMsg = "End date should be before "  + d2.toLocaleDateString();
+			        	allDateFine = false;
+			        	$("#sdateError").html(errMsg).change();
+			            $("#sdateError").removeClass("hide");
+			        }
+			        
+			        if ( d3 > d4 ) {
+			        	var errMsg = "Start date should be before End date";
+			        	allDateFine = false;
+			        	$("#sdateError").html(errMsg).change();
+			            $("#sdateError").removeClass("hide");
+			            
+			            var errMsg1 = "End date should be after Start date";
+			        	$("#edateError").html(errMsg1).change();
+			            $("#edateError").removeClass("hide");
+			        }
+			        
+			        if(allDateFine){
+			            // compare the 2 dates and check if the sdate and edate values fall in range
+			            var newSubsData = {};
+			            newSubsData["startDate"] = sdate + s;
+			            newSubsData["endDate"] = edate + s;
+			            newSubsData["cost"] = cost;
+			            newSubsData["license"] = {}
+			            newSubsData["license"].id = licenseId;
+
+			            console.log("latest data");
+			            console.log(newSubsData);
+
+			            url = "api/orgs/" + orgId + "/subscriptions/";
+			            if (subsAction == "add") {
+			                ajaxRequest(newSubsData, "POST", url, subsActionSuccess, null);
+			                
+			            } else {
+			                newSubsData["id"] = subsId;
+			                ajaxRequest(newSubsData, "PUT", url, subsActionSuccess, null);
+			            }
+			        }
+			    };
+			    
+				// Submit successful
+			    var subsActionSuccess = function(res) {
+			    	if (subsAction == "add") {
+						$("#completionMsg").html("Subscription has been added successfully.");
+					}else{
+						$("#completionMsg").html("Subscription has been updated successfully.");
+					}
+					$("#completionDiv").show();
+					$("#addsubForm").hide();
+
+			    };
+			    
+			});
+        </script>
+    </body>
+</html>

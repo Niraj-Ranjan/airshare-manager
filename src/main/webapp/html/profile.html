@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>XorFone | Profile</title>
+        <!-- Bootstrap -->
+        <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">        
+        <!-- NProgress -->
+        <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="../css/custom.css" rel="stylesheet">        
+		<link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
+    </head>
+    <!-- -->
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                <div id="header"></div>
+                <!-- page content -->
+                <div class="right_col" role="main">
+                    <div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <div class="col-md-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Profile</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content1">
+                                        <br />
+                                        <form id="updateProfileForm" data-parsley-validate class="form-horizontal form-label-left">                                           
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Name<span class="required">*</span></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="name" type="text" class="form-control" required="" placeholder="Name"/>
+                                                </div>
+                                            </div>
+											<div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Society</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <label id="orgName" class="control-label form-fixed col-md-3 col-sm-3 col-xs-12"></label>
+                                                </div>
+                                            </div>
+											<div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Unit</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <label id="unitName" class="control-label form-fixed col-md-3 col-sm-3 col-xs-12"></label>
+                                                </div>
+                                            </div>
+											<div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Roles</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <label id="roleName" class="control-label form-fixed col-md-3 col-sm-3 col-xs-12"></label>
+                                                </div>
+                                            </div>											
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="email" type="text" type="email" data-parsley-type="email" class="form-control" placeholder="Email"/>
+                                                </div>
+                                            </div>
+											<div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile Number</label>
+                                                <div class="col-md-2 col-sm-2 col-xs-5">
+													<select id="countryCode" class="form-control">
+														<option value="+91">IN (+91)</option>														
+													</select>
+												</div>
+                                                <div class="col-md-4 col-sm-4 col-xs-7">
+                                                    <input id="phone" type="text" data-parsley-phone="" class="form-control" placeholder="Mobile Number"/>
+                                                </div>
+                                            </div>
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <a id="changePassword">I want to change my password</a>
+                                                </div>
+											</div>
+											<div class="form-group hide" id="passwordField">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12">New Password</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+													<input id="password" type="password" class="form-control" placeholder="New Password" data-parsley-pattern="(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" data-parsley-error-message="Password should be alphanumeric with atleast 1 special character and minimum 8 chars"/>
+                                                </div>
+											</div>
+											<div class="form-group hide" id="passwordField2">	
+												<label class="control-label col-md-3 col-sm-3 col-xs-12">New Password Again</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+													<input id="password2" type="password" class="form-control" data-parsley-equalto="#password" data-parsley-error-message="Please type the same password again" placeholder="New Password again"/>
+                                                </div>
+											</div>
+											
+                                            <div class="ln_solid"></div>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <div style="float:left">
+													<button class="btn-secondary"  type="button" id="profCancel">Cancel</button>
+												</div>
+												<div style="float:right">
+                                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- NProgress -->
+        <script src="../vendors/nprogress/nprogress.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="../js/custom.js"></script>
+		<script src="../js/properties.js"></script>
+		<script src="../js/utils.js"></script>
+		<!-- Parsley -->
+        <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+        
+        <script>		
+			$(document).ready(function() {
+				addPhoneValidation();
+				
+				$("#changePassword").click(function() {
+					$("#passwordField").removeClass("hide");
+					$("#passwordField2").removeClass("hide");
+				});
+
+				loadHeader();
+
+				// post request to 
+				// get the data, construct a json 
+				// send a post request
+				$("updateProfileForm").submit(function(event) {
+					event.preventDefault();
+				});
+
+				
+				var loggedInUser = getStorageData(KEY_LOGGED_IN_USER_JSON);
+				var loggedInUserObj = JSON.parse(loggedInUser);
+				
+				//load user details in the form
+				if(loggedInUserObj != null){
+					$("#name").val(htmlEncode(loggedInUserObj.name));
+					if(loggedInUserObj.email != null){
+						$("#email").val(htmlEncode(loggedInUserObj.email.address));
+					}
+					if(loggedInUserObj.phone != null){
+						$("#countryCode").val(loggedInUserObj.phone.countryCode);
+						$("#phone").val(htmlEncode(loggedInUserObj.phone.number));
+					}
+					if(loggedInUserObj.org != null){
+						$("#orgName").text(loggedInUserObj.org.name);
+					}
+					if(loggedInUserObj.unit != null){
+						$("#unitName").text(loggedInUserObj.unit.shortName);
+					}
+					var roleName = "";
+					if(loggedInUserObj.roles != null){
+						for(var i=0;i<loggedInUserObj.roles.length;i++){
+							if(i>0){roleName += ", ";}
+							roleName += loggedInUserObj.roles[i].name;
+						}
+						$("#roleName").text(roleName);
+					}
+				}
+				
+				var validateRequiredFields = function(){
+					if (!$('#email').val().length && !$('#phone').val().length){
+						window.ParsleyUI.removeError($('#email').parsley(), 'atleastone');
+						window.ParsleyUI.removeError($('#phone').parsley(), 'atleastone');
+						window.ParsleyUI.addError($('#email').parsley(), 'atleastone', 'You must fill at least one of these fields');
+						window.ParsleyUI.addError($('#phone').parsley(), 'atleastone', 'You must fill at least one of these fields');
+						return false;
+					 }
+					 else{
+						window.ParsleyUI.removeError($('#email').parsley(), 'atleastone');
+						window.ParsleyUI.removeError($('#phone').parsley(), 'atleastone');
+						return true;
+					 }
+				}
+				
+				var updateProfile = function(){
+					var updateUser = {};
+					updateUser.name = $("#name").val().trim();
+					
+					var email = {};
+					email.address = $("#email").val().trim();
+					updateUser.email = email;
+					
+					var phone = {};
+					//updateUser.phone = getPhoneObjFromText(rawPhone);
+					phone.countryCode = $("#countryCode").val();
+					phone.number = $("#phone").val().trim();
+					updateUser.phone = phone;
+					
+					var password = $("#password").val();
+					if(password != ""){
+						updateUser.password = password;
+					}
+					
+					var url = "api/users/" + loggedInUserObj.id;
+					
+					//ajax					
+					ajaxRequest(updateUser, "PUT", url, 
+						function(response){
+							showMessage("Profile updated", "success");
+							
+							var userFromServer = response.data;
+							
+							//update user obj in storage
+							loggedInUserObj.name = userFromServer.name;
+							loggedInUserObj.email = userFromServer.email;
+							loggedInUserObj.phone = userFromServer.phone;
+							
+							setStorageData(KEY_LOGGED_IN_USER_JSON, JSON.stringify(loggedInUserObj));
+						}, null
+					);
+				};
+				
+				$('#updateProfileForm .btn-primary').on('click', function(e) {
+					console.log("clicked");
+					e.preventDefault();
+					$('#updateProfileForm').parsley().validate();
+					if ($('#updateProfileForm').parsley().isValid() == true && validateRequiredFields() == true) {
+						updateProfile();
+					}
+				});
+				
+				$('#profCancel').on('click', function(){
+					window.location.href=getHomePage();
+				});
+				
+			});
+        </script>
+    </body>
+</html>

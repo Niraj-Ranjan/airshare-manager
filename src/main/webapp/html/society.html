@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>XorFone | New Society</title>
+        <!-- Bootstrap -->
+        <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="../css/custom.css" rel="stylesheet">
+		<link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
+    </head>
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                <div id="header"></div>
+                <!-- page content -->
+                <div class="right_col" role="main">
+                    <div class="">
+                        <div class="page-title">
+                            <div class="title_left">
+                                <h3 id="pageTitle">Add new Society</h3>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <div class="col-md-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Society</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content1">
+										<br />
+										<div id="loadingDiv" class="form-group" style="text-align: center;">
+					                        <div >
+					                        	<img src="../img/loading.gif" width="35px"/>
+					                        	Please wait while we load society information.
+											</div>
+						                </div>
+                                        <br />
+										<div id="formDiv" style="display:none">
+                                        <form id="createOrgForm" data-parsley-validate action="" class="form-horizontal form-label-left">
+                                            <div class="form-group">
+                                                <label class="col-md-12 col-sm-12 col-xs-12">SOCIETY</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <div>                                                    
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="sname">Society Name<span class="required">*</span></label>
+                                                        <input id="sname" type="text" required="required" data-parsley-trigger="change" class="form-control" placeholder="Society Name">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="unitsize">Number of Units/Apartments<span class="required">*</span></label>
+                                                        <input data-parlsey-type="digits" data-parsley-pattern="\d+" data-parsley-trigger="change" min="0" id="unitsize" type="text" required="required" data-parsley-error-message="This value should be a number" class="form-control" placeholder="Number of Units">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="regcode">Registration Code<span class="required">*</span></label>
+                                                        <input id="regcode" data-parsley-type="alphanum" data-parsley-trigger="change" type="text" required="required" data-parsley-remote data-parsley-remote-validator='regcode' data-parsley-remote-options='{ "headers": {"clientId": "ManagerAppId" } }' data-parsley-remote-message="Sorry, code not available!" class="form-control" placeholder="Registration Code">
+                                                        <span class="help-text">Registration code can be used by users to self sign-up from Mobile applications</span>
+                                                    </div>
+													 <div class="col-md-12 col-sm-12 col-xs-12">
+														<div class="checkbox">
+														  <label><input id="lisActive" type="checkbox" checked="checked">Active</label>
+														</div>
+													</div>
+                                                </div>
+                                                <br><br>
+                                               
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <label class="col-md-12 col-sm-12 col-xs-12">SOCIETY ADDRESS</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <div>
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="line1">Line 1</label>
+                                                        <input id="line1" type="text" class="form-control" placeholder="Line 1">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="line2">Line 2</label>
+                                                        <input id="line2" type = "text" class="form-control" rows="1" placeholder='Line 2'></input>
+                                                    </div>
+													<div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="landmark">Landmark</label>
+                                                        <input id="landmark" type="text" class="form-control" rows="1" placeholder='Landmark'></input>
+                                                    </div>
+													<div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="ccountry">Country</label>
+                                                        <select id="ccountry" class="form-control">
+                                                        </select>
+                                                    </div>													
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="state">State</label>
+                                                        <select id="state" class="form-control"></select>
+                                                    </div>
+													<div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="city">City</label>
+                                                        <select id="city" class="form-control"></select>
+                                                    </div>                                                    
+													<div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="pincode">Pincode</label>
+                                                        <input data-parlsey-type="digits" data-parsley-pattern="\d+" min="0" type="text" data-parsley-trigger="change" id="pincode" class="form-control" rows="1" placeholder='Pincode'></input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <label class="col-md-12 col-sm-12 col-xs-12">PRIMARY CONTACT</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <div>
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="cfirstname">First name</label>
+                                                        <input id="cfirstname" type="text" class="form-control" placeholder="First name">
+                                                    </div>
+                                                    
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="clastname">Last name</label>
+                                                        <input id="clastname" class="form-control" rows="1" placeholder="Last Name"></input>
+                                                    </div>
+													
+                                                    <div class="col-md-4 col-sm-6 col-xs-12">
+														<label class="control-label" for="cemail">Email</label>
+                                                        <input type="email" id="cemail" name="email" data-parsley-trigger="change" class="form-control" placeholder="Email">
+                                                    </div>
+													<div class="col-md-12 col-sm-12 col-xs-12">
+														<label class="control-label" for="cmob">Mobile number</label>
+													</div>
+													<div class="col-md-2 col-sm-2 col-xs-4">
+														<select id="ccountrycode" class="form-control">
+															<option value="+91">IN (+91)</option>
+														</select>
+													</div>
+													<div class="col-md-2 col-sm-4 col-xs-8">
+														<input id="cmob" data-parsley-phone="" data-parsley-trigger="change" class="form-control" rows="1" placeholder="Mobile Number"></input>
+													</div>
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <label class="col-md-12 col-sm-12 col-xs-12">REMARKS</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <div>
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <textarea id="remarks" class="form-control" rows="3" placeholder="Internal remarks for XorFone Admin"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+													<div style="float:left">
+														<button class="btn-secondary"  type="button"  id="cancelButton">Cancel</button>
+													</div>
+													<div style="float:right">
+														<button type="submit" id="submitButton" class="btn btn-primary btn-sm">Add</button>
+													</div>
+                                                </div>
+                                            </div>
+                                        </form>
+										</div>
+                                        <div id="completionDiv" style="display:none;">
+						                	<span id="completionMsg"></span><br /><br />
+                                            <a id="addOrg" type="button" class="btn btn-success btn-sm" href="society.html">Add New Society</a>
+                                            <a id="home" type="button" class="btn btn-success btn-sm">Go to Home</a>
+						                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /page content -->
+                <!-- footer content -->
+                <!-- /footer content -->
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme Scripts -->
+        <script src="../js/custom.js"></script>
+		<script src="../js/properties.js"></script>
+		<script src="../js/utils.js"></script>
+        <!-- validator -->
+        <script src="../vendors/validator/validator.js"></script>
+		<!-- Parsley -->
+        <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+        <!-- jQuery Smart Wizard -->
+        <script>
+			$(document).ready(function() {
+
+				loadHeader();
+				var socDataAvl = true;
+				var citiesAvailable = false;
+				window.Parsley.addAsyncValidator('regcode', function (xhr) {
+					//console.log(this.$element); // jQuery Object[ input[name="q"] 
+					var valid = true;
+					if(xhr.status == 200){
+						valid = false;
+					}
+
+					/*window.ParsleyUI.removeError($('#regcode').parsley(),'remote');
+					window.ParsleyUI.removeError($('#regcode').parsley(),'regcode');
+
+					if( !valid ) {
+						window.ParsleyUI.addError($('#regcode').parsley(),'regcode', 'Sorry, code not available!');
+					}*/
+					return valid;
+				}, baseurl + "api/orgs/code/{value}");
+				
+				// post request to add a new society
+				// get the data, construct a json 
+				// send a post request
+				$("form").submit(function(event) {
+					event.preventDefault();
+				});
+
+
+				var populateCityList = function(countrycode, statecode) {
+					//console.log("populateCityList countrycode="+countrycode+", statecode="+statecode);
+					var cities = [];
+					var cdata1 = getStorageData(KEY_COUNTRIES);
+					//console.log(cdata1);
+					var cdata = JSON.parse(cdata1);
+					var select = $("#city")[0];
+					select.options.length = 0;
+					var states = [];
+					for (i = 0; i < cdata.length; i++) {
+						if (cdata[i].id == countrycode) {
+							states = cdata[i].states;
+							console.log(states);
+							for (j = 0; j < states.length; j++) {
+								if (states[j].id == statecode) {
+									cities = states[j].cities;
+									select.add(new Option("Select City", -1));
+									for (k = 0; k < cities.length; k++) {
+										select.add(new Option(cities[k].name, cities[k].id));
+									}
+
+								}
+							}
+						}
+					}
+				};
+
+				var populateStateList = function(countrycode) {		
+					//console.log("populateStateList countrycode="+countrycode);
+				
+					var cdata1 = getStorageData(KEY_COUNTRIES);
+					//console.log(cdata1);
+					var cdata = JSON.parse(cdata1);
+					//console.log(cdata);
+					var select = $("#state")[0];
+					select.options.length = 0;
+					var states = [];
+					for (i = 0; i < cdata.length; i++) {
+						if (cdata[i].id == countrycode) {
+							states = cdata[i].states;
+							//console.log(states);
+							select.add(new Option("Select State", -1));
+							for (j = 0; j < states.length; j++) {
+								select.add(new Option(states[j].name, states[j].id));
+							}
+						}
+					}
+
+					populateCityList(countrycode, -1);
+				};
+
+				var countries = [];
+				var url = "api/metadata/countries/?fullHierarchy=true";
+				ajaxRequest(null, 'GET', url,
+						function(data) {							
+							// just set the local storage							
+							setStorageData(KEY_COUNTRIES, JSON.stringify(data.data));
+							countries = data.data;
+							var select = $("#ccountry")[0];
+
+							select.add(new Option("Select Country", -1));
+							for (i = 0; i < countries.length; i++) {
+								select.add(new Option(countries[i].name, countries[i].id));
+							}
+
+							var cccode = $("#ccountry").val();
+							citiesAvailable = true;
+							checkAndHideIndicator();
+							ifActionEdit();
+						},null
+					);
+
+				$("#ccountry").on("change", function() {
+					var id = $("#ccountry").val();
+					populateStateList(id);
+				});
+
+				$("#state").on("change", function() {
+					var cid = $("#ccountry").val();
+					var id = $("#state").val();
+					populateCityList(cid, id);
+				});
+			
+				
+			
+
+				var socAction = "add";
+				var fromSocDtl = true;
+				var currUrl = window.location.href;
+				if(currUrl.indexOf("action=edit") != -1){
+					socAction = "update";
+					socDataAvl = false;
+				}
+				
+				if(currUrl.indexOf("src=dtl") == -1){
+					fromSocDtl = false;
+				}
+				
+				var ifActionEdit = function(){
+					var url = window.location.href;
+					if(socAction == "update"){
+						//edit society
+						document.title = "XorFone | Update Society";
+						$("#pageTitle").html("Update Society");
+						$("#submitButton").html('Update');
+						$('#regcode').removeAttr('data-parsley-remote-validator');
+						$('#regcode').removeAttr('data-parsley-remote');
+						$('#regcode').removeAttr('data-parsley-remote-options');
+						$('#regcode').removeAttr('data-parsley-remote-message');
+						
+						// Populate Orgs data
+						var populateData = function(orgId) {
+							// get the data for the org
+
+							url = "api/orgs/" + orgId;
+						
+							ajaxRequest(null, 'GET', url,
+								function(response) {
+									// parse the response and populate it in the fields on ui
+									var myres = response.data;
+									$("#sname").prop("value", myres.name);
+									$("#unitsize").prop("value", myres.numOfunit);
+									$("#remarks").prop("value", myres.remark);
+									$("#regcode").prop("value", myres.registrationCode);
+
+									var myaddr = myres.address;
+									if(myaddr != null){
+										$("#line1").prop("value", myaddr.line1);
+										$("#line2").prop("value", myaddr.line2);
+										$("#landmark").prop("value", myaddr.landmark);
+										$("#ccountry").prop("value", myaddr.city.state.country.id).change();
+										$("#state").prop("value", myaddr.city.state.id).change();
+										$("#city").prop("value", myaddr.city.id).change();
+										$("#pincode").prop("value", myaddr.zip);
+									}
+							
+									if (myres.active == false) {
+										$('#lisActive').prop("checked", false);
+									} else {
+										$('#lisActive').prop("checked", true);
+									}
+
+									var mycontact = myres.contact;
+									if(mycontact != null){
+										$("#cfirstname").prop("value", mycontact.firstName);
+										$("#clastname").prop("value", mycontact.lastName);
+										if(mycontact.email != null){
+											$("#cemail").prop("value", mycontact.email.address);
+										}
+										if(mycontact.phone != null){
+											$("#cmob").prop("value", mycontact.phone.number);
+											$("#ccountrycode").prop("value", mycontact.phone.countryCode).change();
+										}
+									}
+									socDataAvl = true;
+									checkAndHideIndicator();
+								},null
+							);							
+						}
+						
+						var orgId = getStorageData(KEY_ORG_ID);
+						populateData(orgId);
+					}
+				};
+				
+				var allDataAvailable = function(){
+					if(citiesAvailable && socDataAvl){
+						return true;
+					}
+					return false;
+				};
+
+				var checkAndHideIndicator = function(){
+					if(allDataAvailable()){
+						// hide indicator.
+						$("#loadingDiv").hide();
+						$("#formDiv").show();
+					}
+				};
+				
+				var createOrg = function() {
+					var name = $("#sname").val().trim();
+					var usize = $("#unitsize").val().trim();				
+					var regcode = $("#regcode").val().trim();
+					var line1 = $("#line1").val().trim();
+					var line2 = $("#line2").val().trim();
+					var landmark = $("#landmark").val().trim();
+					var city = $("#city").val();
+					var pin = $("#pincode").val().trim();
+					var cfirstname = $("#cfirstname").val().trim();
+					var clastname = $("#clastname").val().trim();
+					var cemail = $("#cemail").val().trim();
+					var ccountrycode = $("#ccountrycode").val();
+					var cmob = $("#cmob").val().trim();
+					var remarks = $("#remarks").val().trim();
+
+					var newOrgData = {};
+					newOrgData["name"] = name;
+					newOrgData["registrationCode"] = regcode;
+					newOrgData["numOfunit"] = parseInt(usize);
+					
+					if(remarks.length){
+						newOrgData["remark"] = remarks;
+					}
+					
+					if(line1.length || line2.length || landmark.length || (city != null && city != -1) || pin.length){
+						newOrgData["address"] = {};
+						newOrgData["address"]["line1"] = line1;
+						newOrgData["address"]["line2"] = line2;
+						newOrgData["address"]["landmark"] = landmark;
+						newOrgData["address"]["city"] = {};
+						if(city != null){
+							newOrgData["address"]["city"]["id"] = parseInt(city);
+						}
+						newOrgData["address"]["zip"] = pin;
+					}
+					
+					if(cfirstname.length || clastname.length || cemail.length || cmob.length){
+						newOrgData["contact"] = {};
+						newOrgData["contact"]["firstName"] = cfirstname;
+						newOrgData["contact"]["lastName"] = clastname;
+						
+						if(cemail.length){
+							newOrgData["contact"]["email"] = {};
+							newOrgData["contact"]["email"]["address"] = cemail;
+						}
+						
+						if(cmob.length){
+							newOrgData["contact"]["phone"] = {};
+							newOrgData["contact"]["phone"]["countryCode"] = ccountrycode;
+							newOrgData["contact"]["phone"]["number"] = cmob;
+						}
+					}
+
+					if ($('#lisActive').prop('checked')) {
+						newOrgData["active"] = true;
+					} else {
+						newOrgData["active"] = false;
+					}
+					
+					if(socAction == "add"){
+						//add society
+						var url = "api/orgs/";				
+						// send a post request to the server for creating a new org				
+						ajaxRequest(newOrgData, 'POST', url,socActionSuccess,null);
+					}else{
+						//edit society
+						var orgId = getStorageData(KEY_ORG_ID);
+						var url = "api/orgs/" + orgId;				
+						// send a put request to the server for creating a new org				
+						ajaxRequest(newOrgData, 'PUT', url,socActionSuccess, null);
+					}
+						
+				};
+				
+				var socActionSuccess = function(res) {
+					//window.location.href = "society_details.html";
+					if (socAction == "add") {
+						$("#completionMsg").html("Society has been added successfully.");
+					}else{
+						$("#completionMsg").html("Society has been updated successfully.");
+					}
+					$("#completionDiv").show();
+					if(isSAUser()){
+						$("#addOrg").hide();
+					}
+					$("#createOrgForm").hide();
+				};
+				
+				$("#cancelButton").on('click', function() {
+					gotoHome();
+					return false;
+				});
+				
+				var gotoHome = function(){
+					if (socAction == "add") {
+						window.location.href = getHomePage();
+					} else {
+						if(fromSocDtl){
+							goToSocietyDetails();
+						} else {
+							window.location.href = getHomePage();
+						}
+						
+					}
+				}
+				
+				$('#submitButton').on('click', function() {
+					$('#createOrgForm').parsley().validate();
+					console.log("In on click");
+					if ($('#createOrgForm').parsley().validationResult == true) {
+						console.log("valid form");
+						createOrg();
+					}
+					
+					return false;
+				});
+				
+				$("#home").on('click', function() {
+					gotoHome();
+					return false;
+				});
+			});
+        </script>
+        <!-- /Parsley -->
+        <!-- /jQuery Smart Wizard -->
+    </body>
+</html>

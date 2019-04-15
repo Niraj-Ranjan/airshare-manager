@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>XorFone | BroadCast Message</title>
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../css/custom.css" rel="stylesheet">
+    <link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../js/custom.js"></script>
+    <script src="../js/properties.js"></script>
+    <script src="../js/utils.js"></script>
+
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+
+
+    <!-- Parsley -->
+    <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+
+</head>
+<!-- -->
+
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div id="header"></div>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>BroadCast Message Detais</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content1">
+                                    <div id="loadingDiv" class="form-group" style="text-align: center;">
+                                        <div>
+                                            <img src="../img/loading.gif" width="35px" />
+                                            Please wait while we Broadcast Message information.
+                                        </div>
+                                    </div>
+                                    <br />
+
+
+
+
+
+
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="x_panel">
+                                            <div class="container-fluid bg-3 ">
+                                                <h3 id="subject">Loading..............</h3>
+                                                <p id="sentOn">Loading..............</p>
+                                                <p id="sentTo">Loading..............</p>
+                                                <hr>
+                                                <p id="details">Loading..............</p>
+                                                <p id="expiredOn">Loading..............</p>
+                                                <hr>
+
+
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <h3 id="subject">Attachments</h3><br>
+                                                    </div>
+
+                                                </div>
+
+                                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                                        <table id="AttachmentsList" class="table dt-responsive"
+                                                            cellspacing="0" width="100%">
+                                                        </table>
+                                                    </div>
+                                            </div><br>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            //addPhoneValidation();
+            loadHeader();
+            $("#loadingDiv").show();
+            populateCountryCodes('mobCountryCode');
+            populateCountryCodes('altCountryCode');
+            var noticeId = getStorageData(KEY_NOTICE_ID);
+            console.log(noticeId);
+            
+            var attchments = [];
+            var dataset = [];
+            var processMsgByIdSuccess = function (response) {
+                var data = response.data;
+                console.log(data);
+                attchments = JSON.stringify(data.attachments);
+                var subject = "";
+                var details = "";
+                var sentOn = "";
+                var sentTo = "";
+                var expiredOn = "";
+                $("#subject").html(htmlEncode(data.subject));
+                if(data.allUnitOfOrg!=true){
+                     $("#sentTo").html(htmlEncode('Sent To: ' + data.sentToUnits));
+                }else{
+                     $("#sentTo").html(htmlEncode('Sent To: All Units'));
+                }
+                $("#sentOn").html(htmlEncode('Sent On: ' + formatDateTime(data.sentOn)));
+                $("#sentTo").html(htmlEncode('Sent To: ' + data.sentToUnits));
+                $("#details").html(htmlEncode(data.subject));
+
+                if(data.expiryDate!=null){
+                    $("#expiredOn").html(htmlEncode('Expired On: ' + formatDateTime(data.expiryDate)));
+                }else{
+                    $("#expiredOn").html(htmlEncode('Never Expire'));
+                }
+             if(data.attachments!=null){
+
+                for (var i = 0; i < data.attachments.length; i++) { var tempData=[];
+                    tempData.push(data.attachments[i].id); 
+                    tempData.push(data.attachments[i].name);
+                    tempData.push(data.attachments[i].type); 
+                    tempData.push(formatFileSize(data.attachments[i].size));
+                    dataset.push(tempData); } // dataset.push(tempData); console.log(tempData); console.log(dataset);
+                    var tb=$("#AttachmentsList").dataTable(); 
+                    tb.fnClearTable(); 
+                    if (dataset.length> 0) {
+                    tb.fnAddData(dataset);
+                    }
+
+
+             }
+                
+            };
+
+            function formatFileSize(bytes) {
+                if (typeof bytes !== 'number') {
+                    return '';
+                }
+                if (bytes >= 1000000000) {
+                    return (bytes / 1000000000).toFixed(2) + ' GB';
+                }
+                if (bytes >= 1000000) {
+                    return (bytes / 1000000).toFixed(2) + ' MB';
+                }
+                return (bytes / 1000).toFixed(2) + ' KB';
+            }
+            var getMessagesDataById = function () {
+                var myurl = "api/messages/" + noticeId;
+                ajaxRequest(null, "GET", myurl, processMsgByIdSuccess, null);
+            };
+            getMessagesDataById();
+            $("#AttachmentsList").dataTable({
+                data: dataset,
+                responsive: true,
+                bLengthChange: false,
+                bFilter: false,
+                searching: false,
+                paging: false,
+                info: false,
+                //"deferRender": true,
+                columns: [{
+                        title: "ID"
+                    },
+                    {
+                        title: "Name"
+                    },
+                    {
+                        title: "TYPE"
+                    },
+                    {
+                        title: "SIZE"
+                    }
+                ],
+        columnDefs: [{
+            "targets": [0],
+            "visible": false,
+            "searchable": false
+        }]
+            });
+                $('#AttachmentsList tbody').on('click', 'tr', function () {
+                    var table = $('#AttachmentsList').DataTable();
+                    var data = table.row(this).data();
+                    attachmentId = data[0];
+                    console.log(attachmentId);
+                    console.log(data);
+                    var url = baseurl + "api/images/" + attachmentId;
+                // window.open(url);
+                //window.location.href = url;
+
+                //not working
+                var params = {
+                Authorization: 'Bearer ' + getAccessToken(),
+                clientId: 'clientId'
+                };
+
+                //Add authentication headers in URL
+                var url = [url, $.param(params)];
+
+                //Open window
+                window.location.href = url;
+
+
+
+                
+                });
+
+            $("#loadingDiv").hide();
+        });
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>XorFone | Forgot Password</title>
+        <!-- Bootstrap -->
+        <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- Animate.css -->
+        <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="../css/custom.css" rel="stylesheet">
+		<link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
+    </head>
+    <body class="login">
+        <div>
+            <a class="hiddenanchor" id="resetanchor"></a>
+			<a class="hiddenanchor" id="otpanchor"></a>
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content">
+                        <form id="otpForm" data-parsley-validate>
+                            <h1>Verify Account</h1>
+							<label id="otpStatus"><span id="otpStatus">
+								<label>We're sending you a Verification Code on the Email/Mobile number you entered.</label>
+								<label>Note: The code will be valid for 15 minutes.</label>
+							</span></label>
+                            <div>
+                                <input id="otp" data-parsley-type="number" class="form-control" placeholder="Verification Code *" data-parsley-required data-parsley-type="number" data-parsley-min="100000" data-parsley-max="999999" data-parsley-min-message="Please enter a valid code" data-parsley-max-message="Please enter a valid code"/>
+                            </div>                            
+                            <div>
+								<button id="btnVerify" class="btn submit xbutton">Verify</button>
+                            </div>
+                            <div class="clearfix"></div>
+                           
+                        </form>
+                    </section>
+                </div>
+				 <div class="animate form registration_form">
+                    <section class="login_content">
+                        <form id="resetForm" data-parsley-validate>
+                            <h1>Reset password</h1>
+							<div>								
+								<div>
+									<input id="password" type="password" class="form-control" placeholder="New Password *" data-parsley-pattern="(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" data-parsley-error-message="Password should be alphanumeric with atleast 1 special character and minimum 8 chars" data-parsley-required/>
+								</div>
+								<div>
+									<input id="password2" type="password" class="form-control" data-parsley-equalto="#password" data-parsley-error-message="Please type the same password again" placeholder="New Password again *" data-parsley-required/>
+								</div>
+                            </div>                            
+                            <div>
+                                <button id="btnReset" class="btn submit xbutton">Reset</button>
+                            </div>
+                            <div class="clearfix"></div>
+                           
+                        </form>
+                    </section>
+                </div>  
+            </div>
+        </div>
+		 <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+		<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="../js/properties.js"></script>
+		<script src="../js/utils.js"></script>
+		<!-- Parsley -->
+        <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+        <script>
+		
+			var uname = "";
+			var verifyData = {};
+			var userId;
+			
+			var sendOtp = function(){
+				console.log("sendOtp uname="+uname);
+				if(isValidEmailAddress(uname)){
+					email = {};
+					email.address = uname;
+					verifyData.email = email;
+				}else if(isValidIsdPhoneNumber(uname)){
+					phone = getPhoneObjFromText(uname);
+					verifyData.phone = phone;
+				}
+				
+				var url = "api/users/forgotPassword";
+				$("#otpStatus").html("<label>Sending Verification Code to "+uname+"...</label>");
+				ajaxRequest(verifyData, "POST", url, 
+					function(data) {
+						$("#otpStatus").html("<label>Verification Code sent to "+uname + "</label><label>Note: This Code is valid for 15 minutes</label>");
+					}, null
+				);
+				return false;
+			}
+			//$(document).ready(function() {
+				
+				uname = getStorageData(KEY_FORGOT_UNAME);				
+				console.log("ready uname="+uname);
+				sendOtp();
+			//});
+			
+			
+			
+			$("#btnVerify").on("click", function() {
+			
+				$('#otpForm').parsley().validate();
+				
+				var otp = $("#otp").val().trim();				
+				if($('#otpForm').parsley().validationResult == true){
+					verifyOtp(otp);
+				}
+				return false;
+			});
+			
+			var verifyOtp = function(otp){
+			
+				verifyData.otp = otp;
+				
+				var url = "api/users/forgotPassword";
+				ajaxRequest(verifyData, "PUT", url, 
+					function(data) {
+						userId = data.data.userId;
+						window.location.href = "#resetanchor";						
+					}, null
+				);
+				return false;
+				
+			}
+			
+			$("#btnReset").on("click", function() {
+			
+				$('#resetForm').parsley().validate();
+				
+				var password = $("#password").val().trim();				
+				if($('#resetForm').parsley().validationResult == true){
+					resetPassword(password);
+				}
+				return false;
+			});
+			
+			var resetPassword = function(password){
+				var resetData = {};
+				resetData.password = password;
+			
+				var url = "api/users/"+userId+"/resetPwd";
+				ajaxRequest(resetData, "PUT", url, 
+					function(data) {
+						showMessage("Password updated", "success");
+						window.location.href = "login.html";
+					}, null
+				);
+				
+				return false;
+			}
+		</script>
+    </body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>XorFone | Unit</title>
+        <!-- Bootstrap -->
+        <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">        
+        <!-- Custom Theme Style -->
+        <link href="../css/custom.css" rel="stylesheet">        
+		<link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
+		
+        <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="../js/custom.js"></script>
+		<script src="../js/properties.js"></script>
+		<script src="../js/utils.js"></script>
+		<!-- Parsley -->
+        <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+        
+    </head>
+    <!-- -->
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                <div id="header"></div>
+                <!-- page content -->
+                <div class="right_col" role="main">
+                    <div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <div class="col-md-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2 id="unitAction">Add Unit</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content1">
+                                    	<div id="loadingDiv" class="form-group" style="text-align: center;">
+					                        <div >
+					                        	<img src="../img/loading.gif" width="35px"/>
+					                        	Please wait while we load unit information.
+											</div>
+						                </div>
+                                        <br />
+                                        <!-- Unit create form: starts -->
+										<div id="formDiv" style="display:none">
+						                <form id="createUnitForm" data-parsley-validate action="" 
+						                		class="form-horizontal form-label-left ">
+						                    <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Unit Name *</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="unitname" type="text" required="required" class="form-control" required placeholder="Unit Name">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Type *</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select id="unittype" required="required" class="form-control"></select>
+                                                </div>
+                                            </div>
+
+											<div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Location</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="unitlocation" type="text" class="form-control" placeholder="Unit Location">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Parent</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select id="parentList" class="form-control" tabindex="-1">
+						                        </select>
+                                                </div>
+                                            </div>
+
+											<div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Short Name</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="unitshortname" type="text" class="form-control"  required="required"
+                                                    				placeholder="Short Name">
+                                                </div>
+                                            </div>
+                                            
+						                    <h4>Owner</h4>
+						                    <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                      				<input id="ownerfname" type="text" class="form-control" placeholder="Owner's First Name">
+                                                </div>
+                                            </div>
+						                    <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                      				<input id="ownerlname" type="text" class="form-control" placeholder="Owner's Last Name">
+                                                </div>
+                                            </div>
+						                    <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                      				<input id="owneremail" type="email" class="form-control" placeholder="Owner's Email" data-parsley-trigger="change">
+                                                </div>
+                                            </div>
+
+						                    <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile Number</label>
+                                                <div class="col-md-2 col-sm-2 col-xs-5">
+					                                <select id="mobCountryCode" class="form-control">
+					                                </select>
+					                            </div>
+					                            <div class="col-md-4 col-sm-4 col-xs-7">
+					                            	<input id="ownermob" type="text" class="form-control"  
+					                            			data-parsley-trigger="change" data-parsley-type="digits"
+					                            			parsley-error-message="Enter a valid Indian Mobile number" 
+					                            			data-parsley-pattern="^[7-9][0-9]{9}$" class="form-control" 
+					                            			rows="1" placeholder="Owner's Mobile Number" maxlength="10"></input>
+					                          	</div>
+                                            </div>
+
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12">Alt.
+												Mobile</label>
+											<div class="col-md-2 col-sm-2 col-xs-5">
+												<select id="altCountryCode" class="form-control">
+												</select>
+											</div>
+											<div class="col-md-4 col-sm-4 col-xs-7">
+												<input id="ownerAltMob" type="text" class="form-control"
+													data-parsley-trigger="change" data-parsley-type="digits"
+													parsley-error-message="Enter a valid Indian Mobile number"
+													data-parsley-pattern="^[7-9][0-9]{9}$" class="form-control"
+													rows="1" placeholder="Owner's Alt. Mobile Number"
+													maxlength="10"></input>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12">Remarks</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<textarea id="remark" class="form-control" rows="3" placeholder="Internal remarks for Unit"></textarea>
+											</div>
+										</div>
+											
+									
+													
+									
+										<br>
+						                    <div class="ln_solid"></div>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <div style="float:left">
+													<button id="cancelAddUnit"   type="button"  class="btn-secondary">Cancel</button>
+												</div>
+												<div style="float:right">
+                                                    <button id="createUnit" type="submit" class="btn btn-primary btn-sm">Add</button>
+                                                </div>
+                                            </div>
+                                        </form>
+										</div>
+						                <!-- Unit create form: ends -->
+						                
+						                <div id="completionDiv" style="display:none;">
+						                	<span id="completionMsg"></span><br /><br />
+                                            <a id="addUnit" type="button" class="btn btn-success btn-sm" href="unit.html">Add New Unit</a>
+                                            <a id="home" type="button" class="btn btn-success btn-sm">Go to Home</a>
+						                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <script>		
+			$(document).ready(function() {
+				//addPhoneValidation();
+				loadHeader();
+				populateCountryCodes('mobCountryCode');
+				populateCountryCodes('altCountryCode');
+				
+			    var orgId = getStorageData(KEY_ORG_ID);
+
+				//$('#createUnitForm').parsley().reset();
+				/*if (!$("#ownerMobNoError").hasClass("hide")) {
+		            $("#ownerMobNoError").addClass("hide");
+		        }
+		        if (!$("#ownerEmailError").hasClass("hide")) {
+		            $("#ownerEmailError").addClass("hide");
+		        } */
+		        
+				var unitDataAvl = false;
+				var unitTypeDataAvl = false;
+				var parentUnitDataAvl = false;
+								
+				var allDataAvailable = function(){
+				
+					if( unitDataAvl && unitTypeDataAvl && parentUnitDataAvl){
+						return true;
+					}
+					return false;
+				};
+				
+				var checkAndHideIndicator = function(){
+					if(allDataAvailable()){
+						// hide indicator.
+						$("#loadingDiv").hide();
+						$("#formDiv").show();
+					}
+				};
+				
+				var url = window.location.href;
+		        var unitId = getStorageData(KEY_UNIT_ID);
+		        var parentId = "";
+		        var populateUnitDataOnForm = function(response) {
+			        var data = response.data;
+
+			        $("#unitname").prop("value", data.name);
+			        $("#unittype").val(data.type.id).change();
+			        $("#unitlocation").prop("value", data.location);
+			        $("#unitshortname").prop("value", data.shortName);
+					$("#remark").prop("value", data.remark);
+			        var ofname = "";
+			        var olname = "";
+			        var oemail = "";
+			        var omob = "";
+			        var oamob = "";
+			        if (data.owner != null) {
+			            ofname = data.owner.firstName;
+			            olname = data.owner.lastName;
+			            if (data.owner.email != null) {
+			                oemail = data.owner.email.address;
+			            }
+
+			            if (data.owner.phone != null && data.owner.phone != undefined) {
+			                omob = data.owner.phone.number;
+			                if(!isEmpty(data.owner.phone.countryCode)) {
+			                	$("#mobCountryCode").val(data.owner.phone.countryCode).change();
+			                }
+			            }
+			            if (data.owner.altPhone != null && data.owner.altPhone != undefined) {
+			                oamob = data.owner.altPhone.number;
+			                if(!isEmpty(data.owner.altPhone.countryCode)) {
+			                	$("#altCountryCode").val(data.owner.altPhone.countryCode).change();
+			                }
+			            }
+			        }
+			        $("#ownerfname").prop("value", ofname);
+			        $("#ownerlname").prop("value", olname);
+			        $("#owneremail").prop("value", oemail);
+			        $("#ownermob").prop("value", omob);
+			        $("#ownerAltMob").prop("value", oamob);
+
+
+			        /*var obj = $("#unittype");
+			        obj.find('option[value=' + data.type.id + ']').attr("selected", 1);*/
+					
+			        if (data.parentUnit != null) {
+			            //var obj1 = $("#parentList");
+			            $("#parentList").val(data.parentUnit.id).change();
+			            parentId = data.parentUnit.id;
+			            //obj1.find('option[value=' + data.parentUnit.id + ']').attr("selected", 1);
+			        }
+
+			        //ajaxRequest(null, "GET", myurl, populateUnitTypes, null);
+			        //console.log("Editing unit here");
+			        //$("#unitAction").html("Edit Unit");
+			        //unitaction = "edit";
+					unitDataAvl = true;
+					checkAndHideIndicator();
+			    };
+			    
+				var rolesAvailable = false;
+				var userDataAvl = false;
+
+				
+				if(url.indexOf("action=update") == -1){
+					unitaction = "Add";
+			        $("#unitAction").html("Add Unit");
+					unitDataAvl = true;
+				} else {
+					unitaction = "update";
+			        $("#unitAction").html("Update Unit");
+			        $("#createUnit").html("Update");
+			        var myurl = "api/units/" + unitId;
+			        $("#loadingDiv").show();
+			        // get unitbyid
+			        ajaxRequest(null, "GET", myurl, populateUnitDataOnForm, null);
+				}
+		        
+			    
+		        
+			    $("#createUnit").on('click', function() {
+			    	$('#createUnitForm').parsley().validate();
+			    	if (true === $('#createUnitForm').parsley().isValid()) {
+			    		unitAction();
+		            }
+			    	
+			        return false;
+			    });
+			    
+			    $("#cancelAddUnit").on('click', function() {
+			    	goToSocietyDetails();
+			    	return false;
+			    });
+			    
+			    $("#home").on('click', function() {
+			    	goToSocietyDetails();
+			    	return false;
+			    });
+			    
+			    /*$("#addUnit").on('click', function() {
+			        console.log("In add unit");
+			        openCreateUnit();
+			    });*/
+
+			    var unitAction = function() {
+			        // function to fill the form and add the user. But we need to send the org id to it.
+
+			        var unitname = $('#unitname').val();
+
+			        var unitlocation = $('#unitlocation').val();
+			        var unitshortname = $('#unitshortname').val();
+			        var ownerinfo = {};
+			        var ownerfname = $('#ownerfname').val();
+			        var ownerlname = $('#ownerlname').val();
+			        var owneremail = $('#owneremail').val();
+			        var ownermob = $('#ownermob').val();
+			        var ownerAltMob = $('#ownerAltMob').val();
+			        var parent = {};
+			        var parentUnitid = $("#parentList").val();
+					var remark = $("#remark").val();
+
+			        var unitsData = {};
+			        unitsData.name = unitname;
+			        unitsData.type = {};
+			        unitsData.type.id = $("#unittype").val();
+
+			        unitsData.location = unitlocation;
+			        unitsData.shortName = unitshortname;
+					unitsData.remark = remark;
+
+			        //unitsData.owner = {};
+			        var owner = {};
+			        if (ownerfname != "") {
+			            owner.firstName = ownerfname;
+			        }
+
+			        if (ownerlname != "") {
+			            owner.lastName = ownerlname;
+			        }
+
+			        if (owneremail != "") {
+			            owner.email = {};
+			            owner.email.address = owneremail;
+			        }
+
+			        if (ownermob != "") {
+			            owner.phone = {};
+			            owner.phone.countryCode =  $("#mobCountryCode").val();
+			            owner.phone.number = ownermob
+			            owner.altPhone = {};
+			            owner.altPhone.countryCode = $("#altCountryCode").val();
+			            owner.altPhone.number = ownerAltMob;
+			        }
+
+			        if (owner != "" && JSON.stringify(owner) != "{}") {
+			            unitsData.owner = owner;
+			        }
+
+			        unitsData["parentUnit"] = {};
+			        if(!isEmpty(parentUnitid)){
+			        	unitsData["parentUnit"]["id"] = parseInt(parentUnitid);
+			        }
+			        
+			        var myurl = "api/orgs/" + orgId + "/units/";
+			        console.log(unitsData);
+			        if (unitaction == "Add") {
+			            myurl = "api/orgs/" + orgId + "/units/";
+			            ajaxRequest(unitsData, "POST", myurl, unitActionSuccess, null);
+			        } else {
+			            myurl = "api/units/" + unitId;
+			            ajaxRequest(unitsData, "PUT", myurl, unitActionSuccess, null);
+			        }
+
+			    };
+			    
+			    var unitActionSuccess = function(res) {
+					if (unitaction == "Add") {
+						$("#completionMsg").html("Unit has been added successfully.");
+					}else{
+						$("#completionMsg").html("Unit has been updated successfully.");
+					}
+					$("#completionDiv").show();
+					$("#createUnitForm").hide();
+					
+			    };
+			    
+			    // get all the unit types also
+			    var unitTypes = getStorageData(KEY_UNIT_TYPES);
+			    
+				var populateUnitTypes = function(types) {
+					$("#unittype").empty();
+			        console.log(types);
+
+			        // adding options in the list here
+			        if(types != null){
+				        for (i = 0; i < types.length; i++) {
+				            var id = types[i].id;
+				            var val = types[i].name;
+	
+				            var o = new Option(val, id);
+				            $("#unittype").append($(o));
+				        }
+			    	}
+					unitTypeDataAvl = true;
+					checkAndHideIndicator();
+			    };
+			    
+			    if(unitTypes == null){
+				    var myurl = "api/metadata/unitTypes";
+
+					var processUnitTypesResponse = function(response){
+						var ut = response.data;
+						populateUnitTypes(ut);
+						setStorageData(KEY_UNIT_TYPES, JSON.stringify(ut));
+					}
+				
+			    	ajaxRequest(null, "GET", myurl, processUnitTypesResponse, null);
+			    } else {
+			    	populateUnitTypes(JSON.parse(unitTypes));
+			    }
+			    
+			    
+			    
+			    var populateUnitsData = function(response) {
+
+			        var unitsdata = response.data;
+			        unitsDataSet = [];
+
+			        //op_needed = [];
+			        var tempdata = [];
+			        $("#parentList").empty();
+			        var selOne = new Option("Select One", "");
+		            $("#parentList").append($(selOne));
+		            
+			        for (var i = 0; i < unitsdata.length; i++) {
+
+			            var id = unitsdata[i].id;
+			            var shortname = unitsdata[i].shortName;
+
+			            var parUnit = new Option(shortname, id);
+			            $("#parentList").append($(parUnit));
+			        }
+			        $("#parentList").val(parentId).change();
+
+					parentUnitDataAvl = true;
+			        checkAndHideIndicator();
+			    };
+
+			    var getAllUnits = function() {
+			        var url = "api/orgs/" + orgId + "/hierarchy?hierarchyType=flat";
+			        ajaxRequest(null, "GET", url, populateUnitsData, null);
+			    };
+
+			    getAllUnits();
+			});
+        </script>
+    </body>
+</html>

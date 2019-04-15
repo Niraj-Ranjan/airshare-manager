@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>AirShare | Login</title>
+        <!-- Bootstrap -->
+        <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- Animate.css -->
+        <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="../css/custom.css" rel="stylesheet">
+		<link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
+    </head>
+    <body class="login">		
+        <div>
+            <a class="hiddenanchor" id="signup"></a>
+            <a class="hiddenanchor" id="signin"></a>
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content">
+                        <img  height="70px" style="padding-top: 5px; padding-bottom: 5px" src="../img/logo_xxxhdpi.png">
+                    
+                        <form id="loginForm" data-parsley-validate>
+                            <h1>The Manager</h1>
+                            <div>
+                                <input id="uname" class="form-control" placeholder="Email*" data-parsley-required />
+                            </div>
+							<br>
+                            <div>
+                                <input id="password" type="password" class="form-control" placeholder="Password" data-parsley-required />
+                            </div>
+                            <div>
+                                <button id="login" class="btn submit xbutton" >Login</button>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="separator">
+                                <span style="display: inline-block;width:100%">
+									<a href="#signup" class="to_register">Sign Up</a>
+									<a class="reset_pass" id="forgotPassword" style="float:right;" href="javascript:void(0);">Forgot password</a>
+                                </span>
+                                <div class="clearfix"></div>
+                                <br />
+                                
+                            </div>
+                        </form>
+                    </section>
+                </div>
+                <div id="register" class="animate form registration_form">
+                    <section class="login_content">
+                        <form id="signupForm" data-parsley-validate>
+                            <h1>Create Account</h1>
+                            <div>
+                                <input id="suname" type="text" class="form-control" placeholder="Full name *" required="" />
+                            </div>
+                            <div>
+                                <input id="spwd" type="password" class="form-control" placeholder="Password *" required="" />
+                            </div>
+                            <div>
+                                <input id="scpwd" type="password" class="form-control" placeholder="Confirm Password *" required="" />
+                            </div>
+                            <div>
+                                <input id="semail" type="email" class="form-control" placeholder="Email *" required="" />
+                            </div>
+                            <div>
+								<select id="ccountrycode" class="form-control col-md-4 col-sm-2 col-xs-4">
+									<option value="+91">IN (+91)</option>
+								</select>
+								<br><br>
+                                <input id="smob" type="text" class="form-control col-md-8 col-sm-4 col-xs-8" placeholder="Mobile number *" required="" />
+                            </div>
+                            
+						</form>
+						<form id="signupSocDtlForm" data-parsley-validate>
+
+                            <div id="socFields">
+                                <div>
+									
+
+								</form>	
+								<form id="signupContactDtlForm" data-parsley-validate>
+									
+                                </div>
+                            </div>
+                            <div>
+								<button id="register1" class="btn submit xbutton">Sign Up</button>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="separator">
+                                <p class="change_link">
+                                    <a href="#signin" class="to_register">Back to Login</a>
+                                </p>
+                                <div class="clearfix"></div>
+                                <br />                                
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+		<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="../js/properties.js"></script>
+		<script src="../js/utils.js"></script>
+		<!-- Parsley -->
+        <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+        <script>
+			$(document).ready(function() {
+				localStorage.clear();
+			});
+
+			
+			
+			
+
+			$("#uname").on("input", function() {
+				//$("#userError").html("");
+				//window.ParsleyUI.removeError($('#phone').parsley(), 'atleastone');
+				$('#loginForm').parsley().reset();
+			});
+
+			$("#uname").on("change", function() {
+				var errorString = "";
+				var myuname = $("#uname").val().trim();
+				
+				if (!isValidEmailAddress(myuname) && !isValidPhoneNumber(myuname)) {
+					errorString = "Enter a valid email id or Phone Number";
+				}
+
+				if (errorString != "") {
+					/*$("#userError").html(errorString);
+					if ($("#userError").hasClass("hide")) {
+						$("#userError").removeClass("hide");
+					}*/
+					window.ParsleyUI.addError($('#uname').parsley(), 'parsley', errorString);
+				}
+			});
+
+			$("#login").on("click", function() {
+				$('#loginForm').parsley().reset();
+
+				var processLoginSuccess = function(response) {
+					var data = response.data;
+					
+					console.log("setting logged in user in session " +JSON.stringify(data));
+					setStorageData(KEY_LOGGED_IN_USER_JSON, JSON.stringify(data));
+										
+					//var org = data.org;
+					//var orgid = org.id;
+					
+		
+					var landingPage = getHomePage();
+					
+					//store logged-in user's org to show that org after SA logs in
+					//setStorageData(KEY_ORG_ID, orgid);
+					//setStorageData(KEY_ORG_NAME, org.name);
+					
+					if(landingPage != ""){
+						window.location.href = landingPage;
+					}else{
+						showMessage("It seems you don't have enough roles", "error");
+					}
+				};
+
+				console.log("Logging in");
+
+				$('#loginForm').parsley().validate();
+				
+				if($('#loginForm').parsley().isValid() === true){
+					var uname = $("#uname").val();
+					var pwd = $("#password").val();
+
+					var loginDetails = {};
+					
+					if(isValidEmailAddress(uname)){
+						var email = {};
+						email.address = uname;
+						loginDetails.email = uname;
+					}else if(isValidPhoneNumber(uname)){
+						loginDetails.phone = getPhoneObjFromText(uname);
+					}else{
+						return false;
+					}
+
+					loginDetails.password = pwd;
+					var myurl = "api/users/login";
+
+					console.log(loginDetails);
+					ajaxRequest(loginDetails, "POST", myurl, processLoginSuccess, null);
+				}				
+				
+				return false;
+			});
+
+			
+
+			
+			
+			
+			
+			
+			var signup = function() {
+				$('#signupForm').parsley().reset();
+				$('#signupForm').parsley().validate();
+				
+				$('#signupSocDtlForm').parsley().reset();
+				$('#signupContactDtlForm').parsley().reset();
+				
+				if($('#signupForm').parsley().isValid() === false){
+					return false;
+				}
+				
+				// signup details
+				var name = $("#suname").val().trim();
+				var pwd = $("#spwd").val();
+				var cpwd = $("#scpwd").val();
+				var email = $("#semail").val().trim();
+				var mobno = $("#smob").val().trim();
+
+				if ($("#hasSociety").is(":checked")) {
+					var regcode = $("#sregcode").val().trim();
+				}else{
+					$('#signupSocDtlForm').parsley().validate();
+					if($('#signupSocDtlForm').parsley().isValid() === false){
+						return false;
+					}
+					var socname = $("#socname").val().trim();
+					var nounits = $("#unitsize").val();
+					var line1 = $("#line1").val().trim();
+					var line2 = $("#line2").val().trim();
+					var landmark = $("#landmark").val().trim();
+
+					var state = $("#state").val();
+					var city = $("#city").val();
+					var cccode = $("#ccountry").val();
+					
+					if(!$("#primContact").is(":checked")){
+						$('#signupContactDtlForm').parsley().validate();
+						if($('#signupContactDtlForm').parsley().isValid() === false){
+							return false;
+						}
+						var fname = $("scfname").val().trim();
+						var lname = $("sclname").val().trim();
+						var cemail = $("scemail").val().trim();
+						var cmob = $("scmobno").val().trim();
+					}
+				}
+				
+				var userData = {};
+				userData.name = name;
+				userData.password = pwd;
+				userData.email = {};
+				userData.email.address = email;
+
+				var processSignInSuccess = function(response) {
+					//console.log(response);
+					showMessage('User(s) registered successfully.', 'success');
+					window.location.href = "login.html#signin";
+				};
+
+				var processSignupSuccess = function(response) {
+					console.log(response);
+					var data = response.data;
+					var orgid = data.id;
+
+					// call createuserbyid now
+					userData.org = {};
+					userData.org.id = orgid;
+					userData.roles = [];
+					var role = {};
+					role.id = "2";
+					userData.roles.push(role);
+					var myurl1 = "api/users/"
+					ajaxRequest(userData, "POST", myurl1, processSignInSuccess, null);
+				};
+
+				if ($("#hasSociety").is(":checked")) {
+					// use the regcode to make the request to create user directly using regcode
+					var myurl = "api/orgs/code/" + regcode;
+					var loginDetails = "";
+					ajaxRequest(loginDetails, "GET", myurl, processSignupSuccess, null);
+				} else {
+					// get basic society values and send a create org request
+					var socDetails = {};
+					socDetails.name = socname;
+					socDetails.numOfUnit = nounits;
+					socDetails.address = {};
+					var address = {};
+					address.line1 = line1;
+					address.line2 = line2;
+					address.landmark = landmark;
+					address.city = city;
+
+					var mycity = {};
+					mycity.state = {};
+					mycity.state.country = {};
+					mycity.state.id = state;
+					socDetails["address"]["city"]["state"]["id"] = state;
+					socDetails["address"]["city"]["state"]["name"] = $("#city").text();
+					socDetails["address"]["city"]["state"]["country"] = {};
+					socDetails["address"]["city"]["state"]["country"]["id"] = cccode;
+					socDetails["address"]["city"]["state"]["country"]["name"] = $("#ccountry").text();
+
+
+					socDetails.address = address;
+					var contact = {};
+					//create a new society first, then create a new user
+
+					if ($("#primContact").is(":checked")) {
+						contact["contact"] = {};
+						contact["contact"]["firstName"] = name;
+						contact["contact"]["lastName"] = clastname;
+						contact["contact"]["email"] = {};
+						contact["contact"]["email"]["address"] = cemail;
+						contact["contact"]["phone"] = {};
+						contact["contact"]["phone"]["number"] = cmob;
+						socDetails.contact = contact;
+					} else {
+						contact["contact"] = {};
+						contact["contact"]["firstName"] = cfirstname;
+						contact["contact"]["lastName"] = clastname;
+						contact["contact"]["email"] = {};
+						contact["contact"]["email"]["address"] = cemail;
+						contact["contact"]["phone"] = {};
+						contact["contact"]["phone"]["number"] = cmob;
+
+						console.log($("#countryCode").val());
+						socDetails["contact"]["phone"]["countryCode"] = $("#countryCode").val();
+						socDetails.contact = contact;
+						socDetails.contact = contact;
+
+					}
+					myurl = "api/orgs/";
+					var processSocietyCreationSuccess = function(response) {
+						var societydata = response.data;
+						var orgid = societydata.id;
+						userData.org = {};
+						userData.org.id = orgid;
+						userData.roles = [];
+						var role = {};
+						role.id = "2";
+						userData.roles.push(role);
+						var myurl1 = "api/users/"
+						ajaxRequest(userData, "POST", myurl1, processSignInSuccess, null);
+					};
+
+					ajaxRequest(socDetails, "POST", myurl, processSocietyCreationSuccess, null);
+
+				}
+				
+				return false;
+			}
+
+			$("#register1").on("click", function() {
+				signup();
+			});
+			
+			$("#forgotPassword").on("click", function() {
+				$('#loginForm').parsley().reset();
+				var uname = $("#uname").val().trim();
+				if(uname == ""){
+					window.ParsleyUI.addError($('#uname').parsley(), 'required', 'Please enter valid Email/Mobile number');
+				} else {
+					setStorageData(KEY_FORGOT_UNAME, uname);
+					window.location.href = "forgot.html";
+				}
+			});
+        </script>
+    </body>
+</html>

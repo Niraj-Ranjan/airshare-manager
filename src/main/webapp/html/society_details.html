@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AirShare | Dashboard</title>
+	<!-- Bootstrap -->
+	<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Datatables -->
+	<link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom Theme Style -->
+	<link href="../css/custom.css" rel="stylesheet">
+
+
+
+	<link href="../css/lib/jquery.modal.css" rel="stylesheet">
+	<link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
+</head>
+
+<body class="nav-md">
+	<div class="container body ">
+		<div class="main_container">
+			<div id="header"></div>
+			<!-- page content -->
+			<div class="right_col">
+				
+				<br />
+				<div class="row"
+					style="border:1px solid #E6E9ED;background-color:#fff;margin-left:10px;margin-right:10px">
+					<div id="socLoadingDiv" style=" padding: 20px;">
+						<div>
+							<img src="../img/loading.gif" width="35px" />
+							Please wait while we load Society information.
+						</div>
+					</div>
+					
+				</div>
+				<br />
+				<div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="x_panel">
+							<div class="x_title1">
+								<ul class="nav navbar-right panel_toolbox">
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content1">
+								<div class="" role="tabpanel">
+									<ul id="myTab" class="nav nav-tabs">
+										<li class="active"><a href="" data-toggle="tab" role="tab"
+												data-target="#Units"><i class="glyphicon fa fa-building-o"></i>
+												Document</a></li>
+										<li><a href="" data-toggle="tab" role="tab" data-target="#Users"><i
+													class="glyphicon fa fa-users "></i> Users</a></li>
+										
+										<li><a href="" data-toggle="tab" role="tab" data-target="#Messaging"><i
+													class="glyphicon glyphicon-bullhorn"></i> BroadCast</a></li>
+										
+									</ul>
+									<div class="tab-content">
+										<br>
+
+										<div id="Units" class="tab-pane fade in active" role="tabpanel">
+
+											<div class="row">
+
+											
+											<div class="col-md-8 col-sm-8 col-xs-8">
+												<p>SELECT BRANCH</p>
+
+												<table id="BranchTable" class="table dt-responsive" style="width:65%">
+													<thead>
+														<tr>
+															<th>ID</th>
+															<th>NAME</th>
+															<th>REG. CODE</th>
+
+														</tr>
+													</thead>
+												</table>
+											<p>SELECT SEMESTER</p>
+											<table id="SemTable1" class="table dt-responsive" style="width:65%">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>NAME</th>
+											
+													</tr>
+												</thead>
+												</table>
+											<br>
+											</div>
+
+
+<div class="col-md-4 col-sm-4 col-xs-12">
+
+	<label for="messageSub">Comment:</label>
+	<textarea id="messageMultiSub1" required="required" class="form-control" name="message" data-parsley-trigger="keyup"
+		data-parsley-minlength="1" data-parsley-maxlength="400"
+		data-parsley-maxlength-message="Enter subject with max 200 charaters"
+		data-parsley-validation-threshold="40"></textarea>
+	<!-- Attachments Form -->
+	<label for="messageSub">Attachment:</label>
+	<form id='attachmentsform' method='post' action='' enctype="multipart/form-data">
+		<input type='file' name='file' id='file' class='form-control'><br>
+		<input type='button' class='btn btn-info' value='Upload Document' id='upload'>
+	</form>
+
+
+<br><br>
+	
+	<div>
+		<button id="sendDocument" type="submit" class="btn btn-primary btn-sm">Send Document
+			</button>	</div>
+</div>
+
+
+
+
+
+											</div>
+
+
+
+											
+											<!--a id="broadMsg" type="button" class="btn btn-success btn-sm">BroadCast</a-->
+										</div>
+										<div id="Users" class="tab-pane fade in" role="tabpanel">
+											<a id="addUser" type="button" class="btn btn-success btn-sm"
+												href="user.html">Add User</a>
+											<a id="editUser" type="button"
+												class="btn btn-success btn-sm disabled">Update User</a>
+											<!-- <a id="delUser" type="button" class="btn btn-success btn-sm disabled">Delete User</a>  -->
+											<a id="verUser" type="button"
+												class="btn btn-success btn-sm disabled">Approve</a>
+											<a id="actDactUser" type="button"
+												class="btn btn-success btn-sm disabled">Activate/DeActivate</a>
+											<a id="downloadUserTemplate" type="button"
+												class="btn btn-success btn-sm">Download User Template</a>
+											<a id="uploadUserTemplate" type="button" class="btn btn-success btn-sm">Bulk
+												Upload Users</a>
+											<br /><br />
+											<div class="row">
+												Filter Users:
+												<select id="userFilter" class="customFilter">
+													<option value="All">All</option>
+													<option value="Active">Active Only</option>
+													<option value="Inactive">Inactive Only</option>
+													<option value="Approved">Approved Only</option>
+													<option value="Unapproved">Unapproved Only</option>
+												</select>
+											</div>
+											<table id="UsersTable" class="table dt-responsive" cellspacing="0"
+												width="100%">
+											</table>
+											<br>
+											<a id="addUser1" type="button" class="btn btn-success btn-sm"
+												href="user.html">Add User</a>
+											<a id="editUser1" type="button"
+												class="btn btn-success btn-sm disabled">Update User</a>
+											<!-- <a id="delUser1" type="button" class="btn btn-success btn-sm disabled">Delete User</a>  -->
+											<a id="verUser1" type="button"
+												class="btn btn-success btn-sm disabled">Approve</a>
+											<a id="actDactUser1" type="button"
+												class="btn btn-success btn-sm disabled">Activate/DeActivate</a>
+											<a id="downloadUserTemplate1" type="button"
+												class="btn btn-success btn-sm">Download User Template</a>
+											<a id="uploadUserTemplate1" type="button"
+												class="btn btn-success btn-sm">Bulk Upload Users</a>
+										</div>
+										<div id="Subscriptions" class="tab-pane fade in" role="tabpanel">
+											<a type="button" class="btn btn-success btn-sm" id="addsubscription"
+												href="society_subscription.html">Add Subscription</a>
+											<a id="editsubscription" type="button"
+												class="btn btn-success btn-sm disabled">Edit Subscription</a>
+											<a type="button" class="btn btn-success btn-sm disabled"
+												id="remsubscription">Delete Subscription</a>
+											<br /><br />
+											<table id="SubsTable" class="table dt-responsive" cellspacing="0"
+												width="100%">
+											</table>
+											<br>
+											<a type="button" class="btn btn-success btn-sm" id="addsubscription1"
+												href="society_subscription.html">Add Subscription</a>
+											<a id="editsubscription1" type="button"
+												class="btn btn-success btn-sm disabled">Edit Subscription</a>
+											<a type="button" class="btn btn-success btn-sm disabled"
+												id="remsubscription1">Delete Subscription</a>
+										</div>
+
+
+										<div id="Messaging" class="tab-pane fade in" role="tabpanel">
+											<a id="multiMsg" type="button" class="btn btn-success btn-sm ">Send
+												Message</a>
+											<br /><br />
+
+											<table id="MsgTable" class="table dt-responsive" cellspacing="0"
+												width="100%">
+											</table>
+
+											<br>
+											
+										</div>
+
+
+										<div id="SocHistory" class="tab-pane fade in" role="tabpanel">
+											<table id="HistoryTable" class="table dt-responsive" cellspacing="0"
+												width="100%">
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page content -->
+
+	<!-- Multicast messages: starts -->
+
+	
+	<!-- Multicast messages: ends -->
+
+	<!-- Message form: Starts -->
+	<form id="msgForm" data-parsley-validate action="" style="display:none;"
+		class="form-horizontal form-label-left modal modal-lg">
+		
+		<div class="row">
+
+
+			<div class="col-md-8 col-sm-8 col-xs-8">
+				<p>SELECT BRANCH</p>
+
+				<table id="BranchTableMessage" class="table dt-responsive" style="width:65%">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>NAME</th>
+							<th>REG. CODE</th>
+
+						</tr>
+					</thead>
+				</table>
+				<p>SELECT SEMESTER</p>
+				<table id="SemTableMessage" class="table dt-responsive" style="width:30%">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>NAME</th>
+
+						</tr>
+					</thead>
+				</table>
+				<br>
+			</div>
+			
+			<div class="col-md-4 col-sm-4 col-xs-12">
+				<br><br>
+				<label for="messageSub">Subject:</label>
+				<textarea id="messageSubject" required="required" class="form-control" name="message"
+					data-parsley-trigger="keyup" data-parsley-minlength="1" data-parsley-maxlength="200"
+					data-parsley-maxlength-message="Enter subject with max 200 charaters"
+					data-parsley-validation-threshold="10"></textarea>
+				<label for="messageSub">Details:</label>
+				<textarea rows="10" id="messageDetails" required="required" class="form-control" name="message"
+					data-parsley-trigger="keyup" data-parsley-minlength="1" data-parsley-maxlength="800"
+					data-parsley-maxlength-message="Enter message with max 800 charaters"
+					data-parsley-validation-threshold="10"></textarea>
+				<div>
+					<ul id="sendMessageErrors" class="parsley-errors-list"></ul>
+				</div>
+				
+				<div>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<button id="sendMsg" type="submit" class="btn btn-primary btn-sm">Send Message
+		</button>
+		<a id="closeMsg" type="button" class="btn btn-success btn-sm">Cancel</a>
+				</div>
+				
+			</div>
+			
+		</div>
+
+
+	</form>
+
+
+
+
+	<!-- Message form: Ends -->
+
+	
+
+
+
+	</div>
+	</div>
+	<!-- jQuery -->
+	<script src="../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- Datatables -->
+	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script src="../js/custom.js"></script>
+	<!-- jQuery autocomplete -->
+	<script src="../vendors/dropzone/dist/min/dropzone.min.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Custom Theme Scripts -->
+	<script src="../js/custom.js"></script>
+	<script src="../js/lib/jquery.modal.js"></script>
+	<script src="../js/properties.js"></script>
+	<script src="../js/utils.js"></script>
+	<script src="../js/society.js"></script>
+	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+
+
+	<!-- JavaScript Includes -->
+
+	<script src="../js/file/jquery.knob.js"></script>
+
+	<!-- jQuery File Upload Dependencies -->
+	<script src="../js/file/jquery.ui.widget.js"></script>
+	<script src="../js/file/jquery.iframe-transport.js"></script>
+	<script src="../js/file/jquery.fileupload.js"></script>
+
+
+
+
+
+
+	<script>
+		$(document).ready(function () {
+			loadHeader();
+			
+
+		});
+
+		$(".select2_single").select2({
+			placeholder: "Select a Unit"
+		});
+	</script>
+	<!-- Datatables -->
+	<!-- /Datatables -->
+	<style>
+		.fstElement {
+			font-size: 1em;
+		}
+
+		.fstToggleBtn {
+			min-width: 16.5em;
+		}
+
+		.submitBtn {
+			display: none;
+		}
+
+		.fstMultipleMode {
+			display: block;
+		}
+
+		.fstMultipleMode .fstControls {
+			width: 100%;
+		}
+	</style>
+</body>
+
+</html>

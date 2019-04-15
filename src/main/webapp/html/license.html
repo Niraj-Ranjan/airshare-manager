@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>XorFone | New License</title>
+        <!-- Bootstrap -->
+        <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- Custom Theme Style -->
+		<link href="../css/lib/fastselect.min.css" rel="stylesheet">
+        <link href="../css/custom.css" rel="stylesheet">
+		<link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
+    </head>
+    <!-- -->
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                <div id="header"></div>
+                <!-- page content -->
+                <div class="right_col" role="main">
+                    <div class="">
+                        <div class="page-title">
+                            <div class="title_left">
+                                <h3 id="pageTitle">Add New License</h3>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <div class="col-md-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>License Details</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content1">
+                                        <br />
+										<div id="loadingDiv" class="form-group" style="text-align: center;">
+					                        <div >
+					                        	<img src="../img/loading.gif" width="35px"/>
+					                        	Please wait while we load required information.
+											</div>
+						                </div>
+                                        <br />
+										<div id="formDiv" style="display:none">
+                                        <form id="licenseForm" data-parsley-validate action="" class="form-horizontal form-label-left">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Name<span class="required">*</span></label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="lname" required="required" type="text" class="form-control" placeholder="License Name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input id="ldet" type="text" class="form-control" placeholder="License Details">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Duration<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                                    <input data-parsley-trigger="change" required="required" id="lduration" type="text" data-parlsey-type="digits" min="0" class="form-control">
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                                    <select required="required" id="ldurationUnit" class="form-control">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-sm-3 col-xs-12 control-label">Active
+                                                </label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                        <input id="lisActive" type="checkbox" checked="checked">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date<span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                                    <input id="startdate" required="required" class="date-picker form-control col-md-7 col-xs-12" type="date"
+														max="9999-12-31" >
+													<!--placeholder="dd-mmm-yyyy" onfocus="(this.type='date')" onblur="(this.type='text')"-->
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">End Date
+                                                </label>
+                                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                                    <input id="enddate" class="date-picker form-control col-md-7 col-xs-12" type="date" max="9999-12-31">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Cost<span class="required">*</span></label>
+												<div class="col-md-3 col-sm-3 col-xs-6">
+                                                    <select id="lcurr" class="form-control">
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                                    <input data-parsley-trigger="change" id="lcost" class="form-control" data-parlsey-type="digits" min="0" required="required" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Type<span class="required">*</span></label>
+                                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                                    <select required="required" id="lType" class="form-control">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Features</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">                                                    
+													<select id="features" multiple class="multipleSelect form-control">
+													</select>													
+                                                </div>
+                                            </div>
+                                            <div ><ul id="addLicErrors" class="parsley-errors-list"></ul></div>
+						                    <br>
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+												<div class="col-md-9 col-sm-9 col-xs-12">
+													<div style="float:left">
+														<button class="btn-secondary" type="button" onClick="javascript:window.location.href='xa_home.html';">Cancel</button>
+													</div>
+													<div style="float:right">
+														<button id ="submitButton" type="submit" class="btn btn-primary btn-sm">Add</button>
+													</div>
+												</div>
+                                            </div>
+                                        </form>
+                                        </div>
+                                        <div id="completionDiv" style="display:none;">
+						                	<span id="completionMsg"></span><br /><br />
+                                            <a id="addLicense" type="button" class="btn btn-success btn-sm" href="license.html">Add New License</a>
+                                            <a id="home" type="button" class="btn btn-success btn-sm">Go to Home</a>
+						                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /page content -->
+                <!-- footer content -->
+                <!-- /footer content -->
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="../vendors/jquery/dist/jquery.min.js"></script>
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <script src="https://npmcdn.com/vue-select@latest"></script>
+        <!-- Bootstrap -->
+        <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="../vendors/moment/min/moment.min.js"></script>
+        <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+        <!-- Custom Theme Scripts -->
+        <script src="../js/custom.js"></script>
+		<script src="../js/properties.js"></script>
+		<script src="../js/utils.js"></script>
+        <script src="../js/lib/fastselect.standalone.js"></script>
+        <script src="../js/lib/jquery.listswap.js"></script>
+        <!-- Parsley -->
+        <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+        <!-- Parsley -->
+        <script>
+			$(document).ready(function() {
+
+				loadHeader();
+
+				var durationAvail = false;
+				var currencyAvail = false;
+				var featuresAvail = false;
+				var licenseDataAvail = false;
+				
+				// post request to add a new society
+				// get the data, construct a json 
+				// send a post request
+				var submitForm = function() {
+					$('#licenseForm').parsley().validate();
+					if ($('#licenseForm').parsley().validationResult == true) {
+						createOrUpdateLicense();
+					}
+					return false;
+				};
+				
+				$('#submitButton').on('click', submitForm);
+				
+				$("#licenseForm").submit(function(event) {
+					event.preventDefault();
+					submitForm();
+					return false;
+					
+				});
+
+				var populateDurUOMList = function(code) {
+					var dur = [];
+					var myurl = "api/metadata/" + "lookups?type=DURATION_UOM";
+					ajaxRequest(null, 'GET', myurl,
+						function(data) {
+							dur = data.data;
+							var selectUOM = $("#ldurationUnit")[0];
+							var selectLicType = $("#lType")[0];
+							//select.options=[];
+							//select.options.length = 0;
+							var flag = false;
+							for (i = 0; i < dur.length; i++) {
+								console.log(dur[i]);
+								console.log("adding: " + dur[i].name);
+								if (dur[i].key == "DURATION_UOM") {
+									if (i == 0) {
+										selectUOM.add(new Option(dur[i].name, dur[i].id, true, true));
+									} else
+										selectUOM.add(new Option(dur[i].name, dur[i].id));
+								}
+								if (dur[i].key == "LICENSE_TYPE") {
+									if (flag == false) {
+										selectLicType.add(new Option(dur[i].name, dur[i].id, true, true));
+									} else
+										selectLicType.add(new Option(dur[i].name, dur[i].id));
+									flag = true;
+								}
+							}
+							durationAvail = true;
+							checkAndHideIndicator();
+						},null
+					);
+
+				};
+
+				var populateCurrList = function(code) {
+					var curr = [];
+					var myurl = "api/metadata/" + "currencies";
+					ajaxRequest(null, 'GET', myurl,
+						function(data) {							
+							curr = data.data;
+							var selectCurr = $("#lcurr")[0];
+
+							//select.options=[];
+							//select.options.length = 0;
+							for (i = 0; i < curr.length; i++) {
+								console.log(curr[i]);
+								console.log("adding: " + curr[i].prefix);
+
+								if (i == 0)
+									selectCurr.add(new Option(curr[i].prefix, curr[i].id, true, true));
+								else
+									selectCurr.add(new Option(curr[i].prefix, curr[i].id));
+							}
+							currencyAvail = true;
+							checkAndHideIndicator();
+
+						},null
+					);
+				};
+				
+				var populateFeatureList = function(code) {
+					var features = [];
+					var url = "api/features";
+					ajaxRequest(null, 'GET', url,
+						function(data) {							
+							items = data.data;
+							$.each(items, function (i, item) {
+								$('#features').append($('<option>', { 
+									value: item.id,
+									text : item.name 
+								}));
+							});							
+							featuresAvail = true;
+							ifActionEdit(items);
+							
+						},null
+					);
+				};
+
+				populateDurUOMList();
+				populateCurrList();
+				populateFeatureList();
+			
+
+				var populateData = function(allFeatures) {
+					// get the data for the license
+
+					var licenseId = getStorageData(KEY_LICENSE_ID);
+					url = "api/licenses/" + licenseId;
+					
+					ajaxRequest(null, 'GET', url,
+						function(response) {							
+							// parse the response and populate it in the fields on ui
+							console.log(response.data.name);
+							var myres = response.data;
+							$("#lname").prop("value", myres.name);
+							$("#ldet").prop("value", myres.details);
+							$("#lduration").prop("value", myres.duration);
+							$("#ldurationUnit").prop("value", myres.durationUOMStr);
+							$("#ldurationUnit").val(myres.durationUOM).change();
+
+							if (myres.startDate != null) {
+								var sdate = myres.startDate.split(" ");
+								$("#startdate").prop("value", sdate[0]);
+							}
+							if (myres.endDate != null) {
+								sdata = myres.endDate.split(" ");
+								$("#enddate").prop("value", sdata[0]);
+							}
+
+							console.log(myres.active);
+							if (myres.active == true){
+								$('#lisActive').prop('checked', true);
+							}else{
+								$('#lisActive').prop('checked', false);
+							}
+
+							$("#lcost").prop("value", myres.cost);
+							var mycurr = myres.currency;
+							console.log(" curr: " + mycurr.prefix);
+
+							$("#lcurr").val(mycurr.id).change();
+
+							$("#lType").val(myres.type.id).change();
+
+							var features1 = myres.features;
+							if(features1){
+								for(var i=0; i<features1.length; i++){
+									$('#features option[value='+features1[i].id+']').prop('selected', true);
+								}
+							} 
+							$('#features').fastselect({
+								placeholder:"Choose features"
+							});
+							
+							licenseDataAvail = true;
+							checkAndHideIndicator();
+						},null
+					);
+				}
+			
+				var allDataAvailable = function(){
+					if(durationAvail && currencyAvail && featuresAvail && licenseDataAvail){
+						return true;
+					}
+					return false;
+				};
+
+				var checkAndHideIndicator = function(){
+					if(allDataAvailable()){
+						// hide indicator.
+						$("#loadingDiv").hide();
+						$("#formDiv").show();
+					}
+				};
+				
+				var ifActionEdit = function(allFeatures){
+					var url = window.location.href;
+					if(url.indexOf("action=edit") != -1){
+						console.log("in edit");
+						//edit society
+						document.title = "XorFone | Update License";
+						$("#pageTitle").html("Update License");
+						$("#submitButton").html('Update');
+						
+						populateData(allFeatures);
+					}else{
+						licenseDataAvail = true;
+						checkAndHideIndicator();
+						$('#features').fastselect({
+							placeholder:"Choose features"
+						});
+					}
+				}
+				
+				var createOrUpdateLicense = function() {
+					var name = $("#lname").val().trim();
+					var details = $("#ldet").val().trim();
+					var duration = $("#lduration").val().trim();
+					var durationUnit = $("#ldurationUnit").val().trim();
+					var cost = $("#lcost").val().trim();
+					var curr = $("#lcurr").val().trim();
+					var startdate = $("#startdate").val().trim();
+					var enddate = $("#enddate").val().trim();
+					var ltype = $("#lType").val().trim();
+
+					var ds = new Date(startdate);
+					if(!isEmpty(enddate)){
+						var de = new Date(enddate);
+					}
+					
+
+					var features = [];
+
+					features = $("#features").val();
+
+					// get all the selected features now
+
+					var s = " 00:00:00+0000";
+					var newLicData = {};
+
+					newLicData["name"] = name;
+					newLicData["details"] = details;
+					newLicData["duration"] = parseInt(duration);
+					newLicData["durationUOM"] = parseInt(durationUnit);
+					console.log(durationUnit);
+					newLicData["cost"] = parseInt(cost);
+					//newLicData["startDate"] = "2018-02-01 05:30:00+0000";
+					newLicData["startDate"] = startdate + s;
+					if(!isEmpty(enddate)){
+						newLicData["endDate"] = enddate + s;
+					}
+					//newLicData["endDate"] = "2019-01-11 05:30:00+0000";
+					newLicData["type"] = {};
+
+					console.log(ltype);
+					newLicData["type"].id = parseInt(ltype);
+					newLicData["currency"] = {};
+					newLicData["currency"].id = parseInt(curr);
+
+					newLicData["features"] = [];
+					if(!isEmpty(features)){
+						for(var i=0; i<features.length; i++){
+							var feature = {};
+							feature.id = parseInt(features[i]);
+							newLicData["features"].push(feature);
+						}
+					}
+
+					if ($('#lisActive').prop('checked')) {
+						// something when checked
+						newLicData["active"] = true;
+					} else {
+						// something else when not
+						newLicData["active"] = false;
+					}
+					//console.log(JSON.stringify(newLicData));
+					
+					var url = window.location.href;
+					if(url.indexOf("action=edit") == -1){
+						//add license
+						var url = "api/licenses/";
+						// send a post request to the server for creating a new lic
+						ajaxRequest(newLicData, 'POST', url,licActionSuccess,licErrorFunc );
+					}else{
+						//edit license
+						var licenseId = getStorageData(KEY_LICENSE_ID);
+						var url = "api/licenses/" + licenseId;					
+						ajaxRequest(newLicData, 'PUT', url,licActionSuccess,licErrorFunc);
+					}
+				}
+			
+				var licActionSuccess = function(res) {
+					var url = window.location.href;
+					if(url.indexOf("action=edit") == -1){
+						$("#completionMsg").html("License has been added successfully.");
+					}else{
+						$("#completionMsg").html("License has been updated successfully.");
+					}
+					$("#completionDiv").show();
+					$("#licenseForm").hide();
+				};
+		    
+				var licErrorFunc = function(errorResponse){
+					//console.log(errorResponse);
+					if(errorResponse != null && errorResponse.messages != null && errorResponse.messages.length > 0){
+						for (i = 0; i < errorResponse.messages.length; i++) {
+							msg = errorResponse.messages[i];
+							$("#addLicErrors").append('<li class="parsley-required">'+htmlEncode(msg.message)+'</li>');
+						}
+					}
+				};
+				
+				$("#home").on('click', function() {
+					var homeURL = getHomePage();
+					window.location.href=homeURL;
+					return false;
+				});
+			});
+        </script>
+    </body>
+</html>
