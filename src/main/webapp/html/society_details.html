@@ -137,62 +137,17 @@
 											<a id="editUser" type="button"
 												class="btn btn-success btn-sm disabled">Update User</a>
 											<!-- <a id="delUser" type="button" class="btn btn-success btn-sm disabled">Delete User</a>  -->
-											<a id="verUser" type="button"
-												class="btn btn-success btn-sm disabled">Approve</a>
-											<a id="actDactUser" type="button"
-												class="btn btn-success btn-sm disabled">Activate/DeActivate</a>
-											<a id="downloadUserTemplate" type="button"
-												class="btn btn-success btn-sm">Download User Template</a>
-											<a id="uploadUserTemplate" type="button" class="btn btn-success btn-sm">Bulk
-												Upload Users</a>
+											
+											
 											<br /><br />
-											<div class="row">
-												Filter Users:
-												<select id="userFilter" class="customFilter">
-													<option value="All">All</option>
-													<option value="Active">Active Only</option>
-													<option value="Inactive">Inactive Only</option>
-													<option value="Approved">Approved Only</option>
-													<option value="Unapproved">Unapproved Only</option>
-												</select>
-											</div>
+											
 											<table id="UsersTable" class="table dt-responsive" cellspacing="0"
 												width="100%">
 											</table>
 											<br>
-											<a id="addUser1" type="button" class="btn btn-success btn-sm"
-												href="user.html">Add User</a>
-											<a id="editUser1" type="button"
-												class="btn btn-success btn-sm disabled">Update User</a>
-											<!-- <a id="delUser1" type="button" class="btn btn-success btn-sm disabled">Delete User</a>  -->
-											<a id="verUser1" type="button"
-												class="btn btn-success btn-sm disabled">Approve</a>
-											<a id="actDactUser1" type="button"
-												class="btn btn-success btn-sm disabled">Activate/DeActivate</a>
-											<a id="downloadUserTemplate1" type="button"
-												class="btn btn-success btn-sm">Download User Template</a>
-											<a id="uploadUserTemplate1" type="button"
-												class="btn btn-success btn-sm">Bulk Upload Users</a>
+											
 										</div>
-										<div id="Subscriptions" class="tab-pane fade in" role="tabpanel">
-											<a type="button" class="btn btn-success btn-sm" id="addsubscription"
-												href="society_subscription.html">Add Subscription</a>
-											<a id="editsubscription" type="button"
-												class="btn btn-success btn-sm disabled">Edit Subscription</a>
-											<a type="button" class="btn btn-success btn-sm disabled"
-												id="remsubscription">Delete Subscription</a>
-											<br /><br />
-											<table id="SubsTable" class="table dt-responsive" cellspacing="0"
-												width="100%">
-											</table>
-											<br>
-											<a type="button" class="btn btn-success btn-sm" id="addsubscription1"
-												href="society_subscription.html">Add Subscription</a>
-											<a id="editsubscription1" type="button"
-												class="btn btn-success btn-sm disabled">Edit Subscription</a>
-											<a type="button" class="btn btn-success btn-sm disabled"
-												id="remsubscription1">Delete Subscription</a>
-										</div>
+										
 
 
 										<div id="Messaging" class="tab-pane fade in" role="tabpanel">
@@ -266,9 +221,9 @@
 			<div class="col-md-4 col-sm-4 col-xs-12">
 				<br><br>
 				<label for="messageSub">Subject:</label>
-				<textarea id="messageSubject" required="required" class="form-control" name="message"
-					data-parsley-trigger="keyup" data-parsley-minlength="1" data-parsley-maxlength="200"
-					data-parsley-maxlength-message="Enter subject with max 200 charaters"
+				<textarea rows="10" id="subDetails" required="required" class="form-control" name="message"
+					data-parsley-trigger="keyup" data-parsley-minlength="1" data-parsley-maxlength="800"
+					data-parsley-maxlength-message="Enter message with max 800 charaters"
 					data-parsley-validation-threshold="10"></textarea>
 				<label for="messageSub">Details:</label>
 				<textarea rows="10" id="messageDetails" required="required" class="form-control" name="message"

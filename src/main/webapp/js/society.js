@@ -293,7 +293,7 @@ var doc;
         var myurl = getBaseUrl();
         myurl += "api/images";
         console.log(myurl);
-        console.log(attachemnstId);
+        //console.log(attachemnstId);
         // AJAX request
         $.ajax({
             url: myurl,
@@ -306,8 +306,8 @@ var doc;
             success: function (response) {
                 if (response != 0) {
                     i["id"] = JSON.stringify(response.data.id);
-                    attachemnstId.push(response.data);
-                    getAttach(response);
+                    //attachemnstId.push(response.data);
+                   // getAttach(response);
                     doc = response.data;
                   console.log("success response=" + JSON.stringify(response.data));
                 } else {
@@ -436,17 +436,18 @@ var semTableMessage;
  $("#sendMsg").on('click', function () {
      // get the values of the subject and body fields
 
-    var subject = $("messageSubject").val();
-     var details = $("#messageDetails").val();
+   
+    var details = $("#messageDetails").val();
+    var subject1 = $("#subDetails").val();
 
 
-
+console.log(subject1);
      var msg = {};
-     msg["subject"] = subject;
+     msg["subject"] = subject1;
      msg["details"] = details;
-
      msg["branchDTO"] = brachTableMessage;
      msg["semDTO"] = semTableMessage;
+console.log(msg);
 
      var myurl = "api/broadcast";
      ajaxRequest(msg, "POST", myurl, processMsgSuccess1, null);

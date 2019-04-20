@@ -1,417 +1,498 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Meta, title, CSS, favicons, etc. -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>XorFone | User</title>
-        <!-- Bootstrap -->
-        <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">        
-        <!-- Custom Theme Style -->
-		<link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
-		<link href="../css/lib/fastselect.min.css" rel="stylesheet">
-        <link href="../css/custom.css" rel="stylesheet">        
-		
-        <!-- jQuery -->
-        <script src="../vendors/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- Custom Theme Scripts -->
-        <script src="../js/custom.js"></script>
-		<script src="../js/properties.js"></script>
-		<script src="../js/utils.js"></script>
-		<!-- Parsley -->
-        <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
-		<script src="../js/lib/fastselect.standalone.js"></script>
-        
-    </head>
-    <!-- -->
-    <body class="nav-md">
-        <div class="container body">
-            <div class="main_container">
-                <div id="header"></div>
-                <!-- page content -->
-                <div class="right_col" role="main">
-                    <div>
-                        <div class="clearfix"></div>
-                        <div>
-                            <div class="col-md-12 col-xs-12">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <h2 id="userAction">Add User</h2>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="x_content1">
-                                        <br />
-                                        <div id="loadingDiv" class="form-group" style="text-align: center;">
-					                        <div >
-					                        	<img src="../img/loading.gif" width="35px"/>
-					                        	Please wait while we load user information.
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AirShare | User</title>
+	<!-- Bootstrap -->
+	<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom Theme Style -->
+	<link rel="icon" href="../img/xorfone_logo_48.png" type="image/png" sizes="16x16">
+	<link href="../css/lib/fastselect.min.css" rel="stylesheet">
+	<link href="../css/custom.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script src="../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- Custom Theme Scripts -->
+	<script src="../js/custom.js"></script>
+	<script src="../js/properties.js"></script>
+	<script src="../js/utils.js"></script>
+	<!-- Parsley -->
+	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<script src="../js/lib/fastselect.standalone.js"></script>
+	<!-- Datatables -->
+	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+
+</head>
+<!-- -->
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div id="header"></div>
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div>
+					<div class="clearfix"></div>
+					<div>
+						<div class="col-md-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2 id="userAction">Add User</h2>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content1">
+									<br />
+
+									<br />
+									<!-- User create form: starts -->
+
+
+									<div class="col-md-4">
+										<div class="panel panel-default">
+											 <div class="panel-heading">Select Branch</div>
+											<div class="panel-body ">
+												<table id="BranchTable" class="table dt-responsive" style="width:100%">
+													<thead>
+														<tr>
+															<th>ID</th>
+															<th>NAME</th>
+															<th>REG. CODE</th>
+
+														</tr>
+													</thead>
+												</table>
 											</div>
-						                </div>
-						                <br />
-                                        <!-- User create form: starts -->
-										<div id="formDiv" style="display:none">
-						                <form id="createUserForm" data-parsley-validate action="" class="form-horizontal form-label-left ">
-						                    <div class="form-group">
-						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Name *</label>
-						                        <div class="col-md-6 col-sm-6 col-xs-12">
-													<input id="uname" type="text" class="form-control" required="required" placeholder="Name"/>
-												</div>
-						                    </div>
-                                            
-						                    <div class="form-group">
-						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
-						                        <div class="col-md-6 col-sm-6 col-xs-12">
-						                        	<input type="email" id="uemail" name="email" data-parsley-trigger="change" class="form-control" 
-						                        		placeholder="Email">
-						                       	</div>
-						                    </div>
-						                    <div class="form-group">
-						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Unit</label>
-						                        <div class="col-md-6 col-sm-6 col-xs-12">
-						                            <select id="unitListAdd" class="form-control" >
-						                            </select>
-						                        </div>
-						                    </div>
-						                    <div class="form-group">
-						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile</label>
-						                        <div class="col-md-2 col-sm-2 col-xs-5">
-					                                <select id="countryCode" class="form-control">
-					                                </select>
-					                            </div>
-						                        <div class="col-md-4 col-sm-4 col-xs-7">
-						                            <input id="umob" data-parsley-trigger="change" data-parsley-type="digits" parsley-error-message="Enter a valid Mobile number" 
-						                            	data-parsley-pattern="^[7-9][0-9]{9}$" class="form-control" rows="1" placeholder='Mobile Number*' ></input>
-						                        </div>
-						                    </div>
-						                    <br>
-						                    <div class="form-group">
-						                    	<label class="control-label col-md-3 col-sm-3 col-xs-12">Role</label>
-						                        <div class="col-md-6 col-sm-6 col-xs-12">
-						                        	<select id="role" name="role" multiple class="multipleSelect form-control" placeholder="Choose Role">
-						                        	</select>
-						                       	</div>
-						                    </div>
-						                    <div ><ul id="addUserErrors" class="parsley-errors-list"></ul></div>
-						                    <br>
-						                    <div class="ln_solid"></div>
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                                <div style="float:left">
-													<button id="cancelAddUser"  type="button"  class="btn-secondary">Cancel</button>
-												</div>
-												<div style="float:right">
-                                                    <button id="createUser" type="submit" class="btn btn-primary btn-sm">Add</button>
-                                                </div>
-                                            </div>
-						                </form>
 										</div>
-						                <!-- User create form: ends -->
-						                <div id="completionDiv" style="display:none;">
-						                	<span id="completionMsg"></span><br /><br />
-                                            <a id="addUser" type="button" class="btn btn-success btn-sm" href="user.html">Add New User</a>
-                                            <a id="home" type="button" class="btn btn-success btn-sm">Go to Home</a>
-						                </div>
-						                
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+									</div>
 
-        
-        <script>		
-			$(document).ready(function() {
-				//addPhoneValidation();
-				loadHeader();
-				populateCountryCodes('countryCode');
-			    var orgId = getStorageData(KEY_ORG_ID);
-			    var userId = getStorageData(KEY_USER_ID);
-			    var unitId = null;
-				
-				var rolesAvailable = false;
-				var userDataAvl = false;
-				var unitDataAvl = false;
-			    
-			    var url = window.location.href;
-			    var userAct = "Add";
-			    
-			    if(url.indexOf("action=update") == -1){
-			    	userAct = "Add";
-					userDataAvl = true;
-			        $("#userAction").html("Add User");
-				} else {
-					userAct = "update";
-			        $("#userAction").html("Update User");
-			        $("#createUser").html("Update");
-			        $("#loadingDiv").show();
-				}
-			    
-				var allDataAvailable = function(){
-					if(rolesAvailable && unitDataAvl && userDataAvl){
-						return true;
-					}
-					return false;
-				};
-				
-				var checkAndHideIndicator = function(){
-					if(allDataAvailable()){
-						// hide indicator.
-						$("#loadingDiv").hide();
-						$("#formDiv").show();
-					}
-				};
-				
-				var populateUserFormData = function(response) {
-			        // parse the response and populate it in the fields on ui
-			        var myres = response.data;
-			        $("#uname").prop("value", myres.name);
-			        if (myres.email != null) {
-			            $("#uemail").prop("value", myres.email.address);
-			        } else {
-			            $("#uemail").prop("value", "");
-			        }
-			        if (myres.phone != null) {
-			        	$("#umob").prop("value", myres.phone.number);
-			        } else {
-			            $("#umob").prop("value", "");
-			        }
 
-			        var socid = myres.org.id;
-			        if(myres.unit != null){
-			        	unitId = myres.unit.id;
-				        $("#unitListAdd").val(unitId).change();
-				    }
-			        
-			        //populate the roles select input
-			        var uroles = myres.roles;
-			        
-			        var obj = $("#role");
+									<div class="col-md-4">
+										<div class="panel panel-default">
+											 <div class="panel-heading">Select Semester</div>
+											<div class="panel-body ">
+												<table id="SemTable1" class="table dt-responsive" style="width:100%">
+													<thead>
+														<tr>
+															<th>ID</th>
+															<th>NAME</th>
 
-			        for (k = 0;
-			            (uroles != null && k < uroles.length); k++) {
-			            // obj.val(roles);
-			            //obj.find('option[value=' + uroles[k].id + ']').attr("selected", 1);
-						$('#role option[value='+uroles[k].id+']').prop('selected', true);
-			        }
-			        
-					$('#role').fastselect({
-						placeholder:"Choose roles"
-					});
-			        
-					userDataAvl = true;
-					checkAndHideIndicator();
+														</tr>
+													</thead>
+												</table>
+											</div>
+										</div>
+									</div>
 
-			    };
+									<div class="col-md-4">
+										<div class="panel panel-default">
+											 <div class="panel-heading">Select Year</div>
+											<div class="panel-body ">
+												<table id="YearTable1" class="table dt-responsive" style="width:100%">
+													<thead>
+														<tr>
+															<th>ID</th>
+															<th>NAME</th>
 
-			    $("#cancelAddUser").on('click', function() {
-			    	goToSocietyDetails();
-			    	return false;
-			    });
-			    
-			    var validateRequiredFields = function(){
-					if (!$('#uemail').val().length && !$('#umob').val().length){
-						window.ParsleyUI.removeError($('#uemail').parsley(), 'atleastone');
-						window.ParsleyUI.removeError($('#umob').parsley(), 'atleastone');
-						window.ParsleyUI.addError($('#uemail').parsley(), 'atleastone', 'You must fill at least one of these fields');
-						window.ParsleyUI.addError($('#umob').parsley(), 'atleastone', 'You must fill at least one of these fields');
-						return false;
-					 }
-					 else{
-						window.ParsleyUI.removeError($('#uemail').parsley(), 'atleastone');
-						window.ParsleyUI.removeError($('#umob').parsley(), 'atleastone');
-						return true;
-					 }
-				}
-			    
-				$("createUserForm").submit(function(event) {
-					event.preventDefault();
-				});
-				
-			    $("#createUser").on('click', function() {
-			    	$('#createUserForm').parsley().validate();
-			    	if (true === $('#createUserForm').parsley().isValid() && validateRequiredFields()) {
-			    		userAction();
-		            }
-			    	
-			        return false;
-			    });
-			    
-			    var populateRolesData = function(rolesData){
-			    	$('#role').empty();
-			    	/*$('#role').append($('<option>', {
-			            value: -1,
-			            text: '- Choose Role -'
-			        }));*/
-			        for (i = 0; i < rolesData.length; i++) {
-			            console.log(rolesData[i].name);
-			            // fill up the select input now with options
-			            $('#role').append($('<option>', {
-			                value: rolesData[i].id,
-			                text: rolesData[i].name
-			            }));
-			        }
-					/*$('#role').fastselect({
-							placeholder:"Choose roles"
-						});*/
-					
-					rolesAvailable = true;
-					checkAndHideIndicator();
-			    };
-			    
-			    // Populate roles
-			    var orgRoles = getStorageData(KEY_ORG_ROLES);
-		        
-		        if(orgRoles == null){
-			        // get the roles for an org
-			        
-			        // if XA user dont pass type.
-			        var rolesUrl = "api/roles";
-			        
-			        if(isSAUser()){
-			        	rolesUrl = rolesUrl +"?type=organization";
-			        }
-			
-			        var populateRoles = function(r) {
-			            var roles = r.data;
-			            console.log(roles);
-			            populateRolesData(roles);
-			            setStorageData(KEY_ORG_ROLES, JSON.stringify(roles));
-			        };
-			
-			        ajaxRequest(null, "GET", rolesUrl, populateRoles, null);
-		        } else {
-		        	populateRolesData(JSON.parse(orgRoles));
-		        }
-		        
-		        // Populate units
-	            var populateUnitsList = function(res) {
-			        var unitsdata = res.data;
-			        unitsDataSet = [];
-			
-			        //op_needed = [];
-			        var tempdata = [];
-			        $("#unitListAdd").empty();
-			        for (var i = 0; i < unitsdata.length; i++) {
-			        	var id = unitsdata[i].id;
-			        	
-			        	var shortname = "";
-			            if(unitsdata[i].hasOwnProperty("shortName")){
-			            	shortname = unitsdata[i].shortName;
-			            }
-			            
-			            var o = new Option(shortname, id);
-			            $("#unitListAdd").append($(o));
-			        }
-			        
-			        $("#unitListAdd").val(unitId).change();
-					unitDataAvl = true;
-					checkAndHideIndicator();
+														</tr>
+													</thead>
+												</table>
+											</div>
+										</div>
+									</div>
 
-			    };
-			    
-	            var getAllUnits = function() {
-			        var url = "api/orgs/" + orgId + "/hierarchy?hierarchyType=flat";
-			        ajaxRequest(null, "GET", url, populateUnitsList, null);
-			    };
-			
-			    getAllUnits();
-			    
-			    if(userAct == "update"){
-			    	var getUserUrl = "api/users/" + userId;
-			        // get user by id
-			        ajaxRequest(null, "GET", getUserUrl, populateUserFormData, null);
-			    }
 
-			    var userAction = function() {
-			        // function to fill the form and add the user. But we need to send the org id to it.
 
-			    	// get the values of the form fields and make a post request  
-			        var newUserData = {};
-			        
-			        var uName = $("#uname").val();
-			        newUserData["name"] = uName;
-			        
-			        var uemail = $("#uemail").val();
-			        if(uemail != null){
-				        newUserData["email"] = {};
-				        newUserData["email"].address = uemail;
-			        }
-			        
-			        var ccode = $("#countryCode").val();
-			        var umob = $("#umob").val();
-			        if(umob != null){
-				        newUserData["phone"] = {};
-				        newUserData["phone"].countryCode = ccode;
-				        newUserData["phone"].number = umob;
-			        }
-			        
-			        var unitid = $("#unitListAdd").val();
 
-			        var u = {};
-			        u["id"] = unitid;
-			        newUserData["unit"] = u;
-			        
-			        newUserData["org"] = {};
-			        newUserData["org"].id = orgId;
-			        
-			        var j = 0;
-			        var uroles = [];
-			        $('#role :selected').each(function(i, selected) {
-			        	if($(selected).val() > 0){
-			                var role = {};
-			                role.id = $(selected).val();
-			                uroles[j] = role;
-			                j++;
-			        	}
-			        });
-			        newUserData["roles"] = uroles;
+									
 
-			        var myurl = "api/users/";
-			        var req = "POST";
+									<br>
 
-			        if (userAct == "update") {
-			            myurl += userId;
-			            req = "PUT";
-			        }
-			        ajaxRequest(newUserData, req, myurl, userActionSuccess, userErrorFunc);
 
-			    };
-			    
-			    var userActionSuccess = function(res) {
-					//window.location.href = "society_details.html";
-					if (userAct == "Add") {
-						$("#completionMsg").html("User has been added successfully.");
-					}else{
-						$("#completionMsg").html("User has been updated successfully.");
-					}
-					$("#completionDiv").show();
-					$("#createUserForm").hide();
-			    };
-			    
-			    
-			    var userErrorFunc = function(errorResponse){
-			    	console.log(errorResponse);
-			    	if(errorResponse != null && errorResponse.messages != null && errorResponse.messages.length > 0){
-			    		for (i = 0; i < errorResponse.messages.length; i++) {
-			    	        msg = errorResponse.messages[i];
-			    			$("#addUserErrors").append('<li class="parsley-required">'+htmlEncode(msg.message)+'</li>');
-			    	    }
-			    	}
-			    };
-			    
-			    $("#home").on('click', function() {
-			    	goToSocietyDetails();
-			    	return false;
-			    });
 
+
+
+
+
+									
+
+
+
+
+
+
+
+
+
+
+
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+							</div>
+						</div>
+
+						<form id="createUserForm" data-parsley-validate action="" class="form-horizontal form-label-left ">
+							<div class="form-group">
+								<br><br>
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Name *</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input id="uname" type="text" class="form-control" required="required" placeholder="Name" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="email" id="uemail" name="email" data-parsley-trigger="change" class="form-control"
+										placeholder="Email">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Registration Number
+									*</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input id="regname" type="text" class="form-control" required="required"
+										placeholder="Registration Number" />
+								</div>
+							</div>
+
+							</div>
+
+							<br>
+
+							=
+							<div class="col-md-9 col-sm-9 col-xs-12">
+								<div style="float:left">
+									<button id="cancelAddUser" type="button" class="btn-secondary">Cancel</button>
+								</div>
+								<div style="float:right">
+									<button id="createUser" type="submit" class="btn btn-primary btn-sm">Add User</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+
+	<script>
+		$(document).ready(function () {
+			//addPhoneValidation();
+			loadHeader();
+
+
+			var branchDataSet = [
+
+
+			{
+			"id":"1",
+			"name": "Computer Science & Engineering",
+			"regcode": "CSE001"
+
+			},
+			{
+			"id": "2",
+			"name": "Information Technology",
+			"regcode": "IT001"
+			}
+
+			];
+
+			var semDataSet = [
+			{
+			"id":"1",
+			"name":"First Sem."
+			},
+			{
+			"id": "2",
+			"name": "Second Sem."
+
+			}, {
+			"id": "3",
+			"name": "Third Sem."
+
+			}, {
+			"id": "4",
+			"name": "Fourth Sem."
+
+			}, {
+			"id": "5",
+			"name": "Fifth Sem."
+
+			}, {
+			"id": "6",
+			"name": "Sixth Sem."
+
+			}, {
+			"id": "7",
+			"name": "Seventh Sem."
+
+			}, {
+			"id": "8",
+			"name": "Eight Sem."
+
+			}
+
+			]
+
+
+
+			var yearDataSet = [
+			{
+			"id":"1",
+			"name":"First Year."
+			},
+			{
+			"id": "2",
+			"name": "Second Year."
+
+			}, {
+			"id": "3",
+			"name": "Third Year."
+
+			}, {
+			"id": "4",
+			"name": "Fourth Year."
+
+			}
+
+			]
+
+
+			$("#BranchTable").dataTable({
+			data: branchDataSet,
+			responsive: true,
+			bLengthChange: false,
+			bFilter: false,
+			bInfo: false, paging: false,
+			//"deferRender": true,
+			columns: [
+			{ data: "id" },
+			{ data: "name" },
+			{ data: "regcode" }
+			],
+			columnDefs: [{
+			"width": "20%",
+			"targets": 0
+			}]
 
 			});
-        </script>
-    </body>
+
+
+
+
+			$("#SemTable1").dataTable({
+			data: semDataSet,
+			responsive: true,
+			bLengthChange: false,
+			bFilter: false,
+			bInfo: false, paging: false,
+			//"deferRender": true,
+			columns: [
+			{
+			data:'id'
+			},
+			{
+			data:'name'
+			}
+
+			]
+
+			});
+
+
+
+
+$("#YearTable1").dataTable({
+data: yearDataSet,
+responsive: true,
+bLengthChange: false,
+bFilter: false,
+bInfo: false, paging: false,
+//"deferRender": true,
+columns: [
+{
+data:'id'
+},
+{
+data:'name'
+}
+
+]
+
+});
+
+
+var branch;
+var sem;
+var year;
+
+$('#BranchTable tbody').on('click', 'tr', function () {
+	var table = $('#BranchTable').DataTable();
+
+	if ( $(this).hasClass('selected') ) {
+		$(this).removeClass('selected');
+	}
+	else {
+
+		table.$('tr.selected').removeClass('selected');
+		$(this).addClass('selected');
+	}
+
+var data = table.row(this).data();
+var data1 = JSON.parse(JSON.stringify(data));
+console.log(data);
+branch = data;
+});
+
+
+ $('#SemTable1 tbody').on('click', 'tr', function () {
+ var table = $('#SemTable1').DataTable();
+ if ( $(this).hasClass('selected') ) {
+ $(this).removeClass('selected');
+ }
+ else {
+
+ table.$('tr.selected').removeClass('selected');
+ $(this).addClass('selected');
+ }
+ var data = table.row(this).data();
+ var data1 = JSON.stringify(data)
+ console.log(data1);
+ sem = data;
+ });
+
+ $('#YearTable1 tbody').on('click', 'tr', function () {
+ var table = $('#YearTable1').DataTable();
+ if ( $(this).hasClass('selected') ) {
+ $(this).removeClass('selected');
+ }
+ else {
+
+ table.$('tr.selected').removeClass('selected');
+ $(this).addClass('selected');
+ }
+ var data = table.row(this).data();
+ var data1 = JSON.stringify(data)
+ console.log(data1);
+ year = data;
+ });
+
+
+
+  $("#createUser").on('click', function () {
+  // get the values of the subject and body fields
+
+
+  var name = $("#uname").val();
+  var email = $("#uemail").val();
+  var regname = $("#regname").val();
+  
+
+
+
+  var msg = {};
+
+  msg["name"] = name;
+  msg["email"] = email;
+  msg["regno"] = regname;
+  msg["branchDTO"] = branch;
+  msg["semDTO"] = sem;
+  msg["yearDTO"] = year;
+
+
+  var myurl = "api/users";
+  ajaxRequest(msg, "POST", myurl, processMsgSuccess1, null);
+
+  return false;
+  });
+
+
+  var processMsgSuccess1 = function(response) {
+  console.log("Message sent successfully");
+  alert('User Added Successfully')
+
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+		});
+	</script>
+</body>
+
 </html>
